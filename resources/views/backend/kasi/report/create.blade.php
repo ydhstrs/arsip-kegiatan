@@ -12,41 +12,33 @@
                 </div>
             </div>
         @endif
+        
 
         <div class="bg-white block w-full overflow-x-auto p-8">
+            <a href="/dashboard/admin/letter" class="btn btn-primary mb-4">Kembali</a>
+
+    
             <P class="mb-10">{{ $title }}</P>
-            <form method="post" action="/dashboard/room" enctype="multipart/form-data">
+            <form method="post" action="/dashboard/admin/letter" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-6">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Nama/Nomor Kamar</label>
-                    <input type="text" id="name" name="name"
+                    <label for="no" class="block mb-2 text-sm font-medium text-gray-900 ">Nomor Surat</label>
+                    <input type="text" id="no" name="no"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                         placeholder="" required>
                 </div>
                 <div class="mb-6">
-                    <label for="charge" class="block mb-2 text-sm font-medium text-gray-900 ">Tipe</label>
-                    <input type="text" id="type" name="type"
+                    <label for="source" class="block mb-2 text-sm font-medium text-gray-900 ">Asal Surat</label>
+                    <input type="text" id="source" name="source"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                         placeholder="" required>
                 </div>
                 <div class="mb-6">
-                    <label for="charge" class="block mb-2 text-sm font-medium text-gray-900 ">Harga</label>
-                    <input type="text" id="price" name="price"
-                        class="form-control rupiah-input bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="" required>
-                </div>
-                <div class="mb-6">
-                    <label for="floor" class="block mb-2 text-sm font-medium text-gray-900 ">Lantai</label>
-                    <input type="text" id="floor" name="floor"
-                        class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="" required>
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Upload file</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file">Upload file</label>
                     <img class="img-preview w-56 mb-2" id="imgPreview">
                     <input
-                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:placeholder-gray-400 @error('image') border-red-600 @enderror"
-                        aria-describedby="file_input_help" id="image" name="image_fake" type="file"
+                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:placeholder-gray-400 @error('file') border-red-600 @enderror"
+                        aria-describedby="file_input_help" id="file" name="file" type="file"
                         onchange="previewImage()" value="{{ old('image') }}">
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG (MAX.
                         800x400px).</p>
@@ -57,11 +49,11 @@
                     @enderror
 
                     <!-- Hidden input to store the Base64 string -->
-                    <input type="hidden" name="image" id="imageBase64">
+                    {{-- <input type="hidden" name="image" id="imageBase64"> --}}
                 </div>
                 <div class="mb-6">
-                    <label for="floor" class="block mb-2 text-sm font-medium text-gray-900 ">Keterangan</label>
-                    <textarea type="text" id="remark" name="remark"
+                    <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">Deskripsi</label>
+                    <textarea type="text" id="desc" name="desc"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                         placeholder=""> </textarea>
                 </div>

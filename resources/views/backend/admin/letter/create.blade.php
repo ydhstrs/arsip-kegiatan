@@ -12,39 +12,33 @@
                 </div>
             </div>
         @endif
+        
 
         <div class="bg-white block w-full overflow-x-auto p-8">
+            <a href="/dashboard/admin/letter" class="btn btn-primary mb-4">Kembali</a>
+
+    
             <P class="mb-10">{{ $title }}</P>
-            <form method="post" action="/dashboard/asset/{{ $item->id }}" enctype="multipart/form-data">
+            <form method="post" action="/dashboard/admin/letter" enctype="multipart/form-data">
                 @csrf
-                @method('put')
                 <div class="mb-6">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Nama Aset</label>
-                    <input type="text" id="name" name="name"
+                    <label for="no" class="block mb-2 text-sm font-medium text-gray-900 ">Nomor Surat</label>
+                    <input type="text" id="no" name="no"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="" value="{{ $item->name }}" required>
+                        placeholder="" required>
                 </div>
                 <div class="mb-6">
-                    <label for="charge" class="block mb-2 text-sm font-medium text-gray-900 ">Tanggal Pembelian</label>
-                    <input type="date" id="buying_date" name="buying_date"
+                    <label for="source" class="block mb-2 text-sm font-medium text-gray-900 ">Asal Surat</label>
+                    <input type="text" id="source" name="source"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="" value="{{ $item->buying_date }}" required>
+                        placeholder="" required>
                 </div>
                 <div class="mb-6">
-                    <label for="charge" class="block mb-2 text-sm font-medium text-gray-900 ">Harga Beli</label>
-                    <input type="text" id="buying_price" name="buying_price"
-                        class="form-control rupiah-input bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="" value="{{ $item->buying_price }}" required>
-                </div>
-
-
-                <div class="mb-6">
-                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Upload file</label>
-                    <img src="data:image/png;base64,{{ $item->image }}" alt="Room Image" id="imgPreview" class="rounded
-                        max-h-96">
+                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file">Upload file</label>
+                    <img class="img-preview w-56 mb-2" id="imgPreview">
                     <input
-                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:placeholder-gray-400 @error('image') border-red-600 @enderror"
-                        aria-describedby="file_input_help" id="image" name="image_fake" type="file"
+                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:placeholder-gray-400 @error('file') border-red-600 @enderror"
+                        aria-describedby="file_input_help" id="file" name="file" type="file"
                         onchange="previewImage()" value="{{ old('image') }}">
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG (MAX.
                         800x400px).</p>
@@ -55,13 +49,13 @@
                     @enderror
 
                     <!-- Hidden input to store the Base64 string -->
-                    <input type="hidden" name="image" id="imageBase64">
+                    {{-- <input type="hidden" name="image" id="imageBase64"> --}}
                 </div>
                 <div class="mb-6">
-                    <label for="floor" class="block mb-2 text-sm font-medium text-gray-900 ">Keterangan</label>
-                    <textarea type="text" id="remark" name="remark"
+                    <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">Deskripsi</label>
+                    <textarea type="text" id="desc" name="desc"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="">{{ $item->remark }} </textarea>
+                        placeholder=""> </textarea>
                 </div>
 
                 <button type="submit"
@@ -71,6 +65,20 @@
 
     </div>
 
+
+    {{-- <script type="text/javascript">
+function previewImage() {
+const image = document.querySelector('#image');
+const imgPreview = document.querySelector('.img-preview');
+
+imgPreview.style.display = 'block';
+const oFReader = new FileReader();
+oFReader.readAsDataURL(image.files[0]);
+oFReader.onload = function (oFREvent){
+    imgPreview.src = oFREvent.target.result
+}
+} 
+</script>    --}}
     <script type="text/javascript">
         function previewImage() {
             const imageInput = document.getElementById('image');
@@ -93,5 +101,4 @@
             }
         }
     </script>
-
 @endsection

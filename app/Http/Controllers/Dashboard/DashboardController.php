@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
 use App\Models\Transaction;
-use App\Models\Room;
+use App\Models\Letter;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
@@ -117,8 +117,8 @@ $chart = Chartjs::build()
             ]);
 
         // Data untuk pie chart
-        $fullRooms = Room::where('is_available', 0)->count();
-        $availableRooms = Room::where('is_available', 1)->count();
+        $fullRooms = Letter::count();
+        $availableRooms = Letter::count();
         $chartRoom = Chartjs::build()
             ->name('roomAvailabilityChart')
             ->type('pie')

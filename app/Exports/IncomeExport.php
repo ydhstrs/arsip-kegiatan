@@ -39,12 +39,7 @@ class IncomeExport implements FromQuery, WithHeadings, WithStyles, ShouldAutoSiz
 
     public function query()
     {
-        $data = Transaction::whereBetween('transactions.date', [$this->from, $this->to])
-            ->selectRaw('transactions.guest_name, transactions.transaction_no, transactions.transaction_type, rooms.name, transactions.amount')
-            ->where(function ($query) {
-                $query->where('transactions.transaction_type', 'Checkin')->orWhere('transactions.transaction_type', 'Bill');
-            })
-            ->join('rooms', 'rooms.id', '=', 'transactions.room_id');
+        $data = Letter::whereBetween('transactions.date', [$this->from, $this->to]);
 
         return $data;
     }

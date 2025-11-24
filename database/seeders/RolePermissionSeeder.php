@@ -15,6 +15,10 @@ class RolePermissionSeeder extends Seeder
     {
         DB::transaction(function () {
             try {
+                Role::create(['name' => 'Kabid']);
+                Role::create(['name' => 'Kasi']);
+                Role::create(['name' => 'Staff']);
+                Role::create(['name' => 'Admin']);
                 Role::create(['name' => 'Administrator']);
                 Role::create(['name' => 'Member']);
             } catch (\Throwable $th) {

@@ -12,7 +12,7 @@
 
         <h1 class="text-center">{{ $title }}</h1>
 
-        <a href="/dashboard/room/create" class="btn btn-primary mb-4">Tambah {{ $title }}</a>
+        {{-- <a href="/dashboard/admin/letter/create" class="btn btn-primary mb-4">Tambah {{ $title }}</a> --}}
 
         <div class="card">
             <div class="card-body"class="table table-striped table-bordered w-full">
@@ -20,11 +20,10 @@
                     <thead>
                         <tr class="text-center">
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Tipe</th>
-                            <th>Lantai</th>
-                            <th class="text-center">Harga</th>
-                            <th >Status</th>
+                            <th>Judul Laporan</th>
+                            <th>Nomor Surat</th>
+                            <th>Status</th>
+                            <th>Deskripsi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -43,7 +42,7 @@
                 responsive: true,
                 scrollX: $(window).width() < 768, // Aktifkan scrollX hanya untuk layar kecil
 // scrollX: true, // Menambahkan scroll horizontal
-                ajax: "{{ route('dashboard.room.data') }}",
+                ajax: "{{ route('staff.report.data') }}",
                 columns: [{
                         data: 'id',
                         name: 'id',
@@ -52,47 +51,25 @@
                         }
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'title',
+                        name: 'title'
                     },
                     {
-                        data: 'type',
-                        name: 'type'
+                        data: 'no_surat',
+                        name: 'no_surat'
                     },
                     {
-                        data: 'floor',
-                        name: 'floor',
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'desc',
+                        name: 'desc',
                         orderable: true,
                         searchable: true
                     },
-                    {
-                        data: 'price',
-                        name: 'price',
-                        orderable: true,
-                        searchable: false,
-                        className: 'text-right',
-                        render: function(data, type, row) {
-                            return parseFloat(data).toLocaleString('id-ID', {
-                                style: 'currency',
-                                currency: 'IDR',
-                            });
 
-                        }
-                    },
-                    {
-                        data: 'is_available',
-                        name: 'is_available',
-                        orderable: true,
-                        searchable: false,
-                        className: 'text-center',
-
-                        render: function(data, type, row) {
-                            var status = data == 1 ? 'Kosong' : 'Terisi';
-                            var bgColor = data == 1 ? 'bg-success' : 'bg-danger';
-                            return '<span class="' + bgColor + ' text-white p-2 rounded">' +
-                                status + '</span>';
-                        }
-                    },
+                    
                     {
                         data: 'action',
                         name: 'action',

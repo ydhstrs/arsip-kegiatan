@@ -45,7 +45,7 @@
     <table>
         <tr>
             <th>Nama Penerima</th>
-            <td>AVour</td>
+            <td>sipptrantibum</td>
         </tr>
         <tr>
             <th>Nama Pemberi</th>

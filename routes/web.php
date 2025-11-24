@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Master\RoomController;
+use App\Http\Controllers\Admin\LetterController;
+use App\Http\Controllers\Kabid\KabidLetterController;
+use App\Http\Controllers\Kasi\KasiLetterController;
+use App\Http\Controllers\Kasi\KasiReportController;
+use App\Http\Controllers\Staff\StaffLetterController;
+use App\Http\Controllers\Staff\StaffReportController;
 use App\Http\Controllers\Master\AssetController;
 use App\Http\Controllers\Report\LogController;
 use App\Http\Controllers\Report\ProfitController;
@@ -32,9 +37,12 @@ Route::get('/', function () {
     return view('frontend.welcome');
 })->name('/');
 
+Route::redirect('/', '/login');
+
 Route::group(['middleware' => ['auth', 'verified']], function () {
     // Home
     Route::group(['prefix' => 'home', 'as' => 'home.'], function () {
+        Route::redirect('/', '/login');
         Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
     });
 
@@ -46,62 +54,35 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         // Room
         Route::get('/dashboard/log/data', [LogController::class, 'getData'])->name('dashboard.log.data');
         Route::get('/dashboard/log', [LogController::class, 'index'])->name('log.index');
-        // Room
-        Route::get('/dashboard/room/data', [RoomController::class, 'getData'])->name('dashboard.room.data');
-        Route::get('/dashboard/room', [RoomController::class, 'index'])->name('room.index');
-        Route::resource('/dashboard/room', RoomController::class);
 
+        // Route::prefix('dashboard/admin')
+        // ->name('admin.')
+        // ->group(function () {
+        //     Route::get('letter/data', [LetterController::class, 'getData'])
+        //         ->name('letter.data');
+    
+        //     Route::resource('letter', LetterController::class);
+        // });
 
         // Aset
-        Route::get('/dashboard/asset/data', [AssetController::class, 'getData'])->name('dashboard.asset.data');
-        Route::get('/dashboard/asset', [AssetController::class, 'index'])->name('asset.index');
-        Route::resource('/dashboard/asset', AssetController::class);
+        Route::get('/dashboard/kabid/letter/data', [KabidLetterController::class, 'getData'])->name('dashboard.kabid.letter.data');
+        Route::get('/dashboard/kabid/letter', [KabidLetterController::class, 'index'])->name('kabid.letter.index');
+        Route::resource('/dashboard/kabid/letter', KabidLetterController::class);
 
-        // Checkin
-        Route::get('/dashboard/checkin/data', [CheckinController::class, 'getData'])->name('dashboard.checkin.data');
-        Route::get('/dashboard/checkin', [CheckinController::class, 'index'])->name('checkin.index');
-        Route::resource('/dashboard/checkin', CheckinController::class);
-        
+        // Kasi
+        Route::get('/dashboard/kasi/letter/data', [KasiLetterController::class, 'getData'])->name('dashboard.kasi.letter.data');
+        Route::get('/dashboard/kasi/letter', [KasiLetterController::class, 'index'])->name('kasi.letter.index');
+        Route::resource('/dashboard/kasi/letter', KasiLetterController::class);
 
-        // Bill
-        Route::get('/dashboard/bill/data', [BillController::class, 'getData'])->name('dashboard.bill.data');
-        Route::get('/dashboard/bill', [BillController::class, 'index'])->name('bill.index');
-        Route::get('/bill/{id}/print', [BillController::class, 'print'])->name('bill.print');
-        Route::resource('/dashboard/bill', BillController::class);
+        // // Staff
+        // Route::get('/dashboard/staff/letter/data', [StaffLetterController::class, 'getData'])->name('dashboard.staff.letter.data');
+        // Route::get('/dashboard/staff/letter', [StaffLetterController::class, 'index'])->name('staff.letter.index');
+        // Route::resource('/dashboard/staff/letter', StaffLetterController::class);
 
-         // Checkin
-        Route::get('/dashboard/checkout/data', [CheckoutController::class, 'getData'])->name('dashboard.checkout.data');
-        Route::get('/dashboard/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-        Route::get('/checkin/{id}/print', [CheckinController::class, 'print'])->name('checkin.print');
-        Route::resource('/dashboard/checkout', CheckoutController::class);
-
-        // Room
         Route::get('/dashboard/user/data', [UserController::class, 'getData'])->name('dashboard.user.data');
         Route::get('/dashboard/user', [UserController::class, 'index'])->name('user.index');
         Route::resource('/dashboard/user', UserController::class);
-
-        // Paying
-        Route::get('/dashboard/paying/data', [PayingController::class, 'getData'])->name('dashboard.paying.data');
-        Route::get('/dashboard/paying', [PayingController::class, 'index'])->name('paying.index');
-        Route::resource('/dashboard/paying', PayingController::class);
-
-        // Buying
-        Route::get('/dashboard/buying/data', [BuyingController::class, 'getData'])->name('dashboard.buying.data');
-        Route::get('/dashboard/buying', [BuyingController::class, 'index'])->name('paying.index');
-        Route::resource('/dashboard/buying', BuyingController::class);
-
-        // Room Move
-        Route::get('/dashboard/roommove/data', [RoomMoveController::class, 'getData'])->name('dashboard.roommove.data');
-        Route::get('/dashboard/roommove', [RoomMoveController::class, 'index'])->name('roommove.index');
-        Route::resource('/dashboard/roommove', RoomMoveController::class);
-
-        //Income Report
-        Route::get('dashboard/income', [IncomeController::class, 'index'])->name('income.index');
-        Route::get('dashboard/income/export/', [IncomeController::class, 'export'])->name('income.export');
-
-        Route::get('dashboard/expense', [ExpenseController::class, 'index'])->name('expense.index');
-        Route::get('dashboard/expense/export/', [ExpenseController::class, 'export'])->name('expense.export');
-
+        
         Route::get('dashboard/profit', [ProfitController::class, 'index'])->name('profit.index');
 
 
@@ -109,6 +90,107 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::resource('/', \App\Http\Controllers\UserController::class);
         });
     });
+
+    Route::group(['middleware' => ['role:Admin|Administrator']], function () {
+
+        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+
+        Route::prefix('dashboard/admin')
+        ->name('admin.')
+        ->group(function () {
+            Route::get('letter/data', [LetterController::class, 'getData'])
+                ->name('letter.data');
+    
+            Route::resource('letter', LetterController::class);
+        });
+
+        
+    });
+
+    
+    Route::group(['middleware' => ['role:Kabid|Administrator']], function () {
+
+        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+
+        Route::prefix('dashboard/kabid')
+        ->name('kabid.')
+        ->group(function () {
+            Route::get('letter/data', [KabidLetterController::class, 'getData'])
+                ->name('letter.data');
+    
+            Route::resource('letter', KabidLetterController::class);
+        });
+
+        
+    });
+
+    Route::group(['middleware' => ['role:Kasi|Administrator']], function () {
+
+        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+
+        Route::prefix('dashboard/kasi')
+        ->name('kasi.')
+        ->group(function () {
+            Route::get('letter/data', [KasiLetterController::class, 'getData'])
+                ->name('letter.data');
+    
+            Route::resource('letter', KasiLetterController::class);
+        });  
+        Route::prefix('dashboard/kasi')
+        ->name('kasi.')
+        ->group(function () {
+            Route::get('report/data', [KasiReportController::class, 'getData'])
+                ->name('report.data');
+    
+            Route::resource('report', KasiReportController::class);
+        });        
+    });
+    Route::group(['middleware' => ['role:Staff|Administrator']], function () {
+
+        Route::get('/home', [DashboardController::class, 'showChart'])
+            ->name('dashboard.index');
+    
+        Route::prefix('dashboard/staff')
+            ->name('staff.')
+            ->group(function () {
+    
+                // Surat untuk staff
+                Route::get('letter/data', [StaffLetterController::class, 'getData'])
+                    ->name('letter.data');
+                Route::resource('letter', StaffLetterController::class);
+    
+    
+                // Datatables laporan
+                Route::get('report/data', [StaffReportController::class, 'getData'])
+                    ->name('report.data');
+    
+                // Index laporan
+                Route::get('report', [StaffReportController::class, 'index'])
+                    ->name('report.index');
+    
+                // Create laporan → perlu parsing ID surat
+                Route::get('report/create/{letter}', [StaffReportController::class, 'create'])
+                    ->name('report.create');
+    
+                // Store laporan
+                Route::post('report', [StaffReportController::class, 'store'])
+                    ->name('report.store');
+    
+                // Edit laporan
+                Route::get('report/{report}/edit', [StaffReportController::class, 'edit'])
+                    ->name('report.edit');
+    
+                // Update laporan
+                Route::put('report/{report}', [StaffReportController::class, 'update'])
+                    ->name('report.update');
+
+                                    // Edit laporan
+                Route::get('report/{report}/show', [StaffReportController::class, 'show'])
+                ->name('report.show');
+    
+            });
+    });
+    
 });
 
 require __DIR__ . '/auth.php';

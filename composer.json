@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "icehouse-ventures/laravel-chartjs": "^4.1",
+        "intervention/image": "2.7",
         "laravel/breeze": "^1.26",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",

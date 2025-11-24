@@ -353,7 +353,7 @@
             <div id="content" class="row py-lg-5">
                 <div class="col-lg-6 py-5 text-center text-lg-left">
                     <h1 class="font-weight-bold mb-4">
-                        Avour Indekos
+                        sipptrantibum
                     </h1>
                     <p class="lead font-weight-normal text-muted mb-5">
                         Indekos nyaman di Kota Binjai, lokasi strategis, kamar bersih, lingkungan tenang, dan akses

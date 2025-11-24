@@ -42,6 +42,6 @@
                 </g>
             </svg>
         </span>
-        <span class="app-brand-text demo text-body fw-bold">Avour Management</span>
+        <span class="app-brand-text demo text-body fw-bold text-xs">sipptrantibum</span>
     </a>
 </div>
