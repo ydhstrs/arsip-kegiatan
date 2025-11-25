@@ -17,8 +17,7 @@
             <a href="/dashboard/kasi/letter" class="btn btn-primary mb-4">Kembali</a>
             <P class="mb-10">{{ $title }}</P>
             <form method="post" action="" enctype="multipart/form-data">
-                @csrf
-                @method('put')
+
 
                 {{-- ===============================
                     SECTION 2 : READ ONLY (Bawah)

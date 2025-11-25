@@ -13,13 +13,13 @@ class LogController extends Controller
 
      public function getData(Request $request)
     {
-        $items = Log::select(['id', 'activity','created_at'])->get();
+        $items = Log::select(['id', 'activity','created_at'])->latest();
         return DataTables::of($items)
             ->make(true);
     }
     public function index(): View
     {
-        return view('backend.report.log.index', [
+        return view('backend.kasat.log.index', [
             // 'items' => Room::latest()->paginate(10),
             'title' => 'Log Aktivitas',
         ]);

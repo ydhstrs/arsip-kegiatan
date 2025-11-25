@@ -8,11 +8,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
 use App\Models\Letter;
 use App\Models\User;
+use App\Models\Log;
+
 
 class KabidLetterController extends Controller
 {
@@ -80,6 +84,14 @@ class KabidLetterController extends Controller
         $validatedData['status'] = 'Proses Kasi';
 
         $letter->update($validatedData);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        $kasi = User::find($request->kasi_user_id);
+        $kasiName = $kasi ? $kasi->name : 'Unknown User';
+        Log::create([
+            'activity' => "$nameUser Meneruskan Surat ke $kasiName Dengan Nomor $letter->no",
+            'created_by' => $idUser,
+        ]);
     
         return redirect('/dashboard/kabid/letter')->with('success', 'Surat Berhasil Diupdate');
     }

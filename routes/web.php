@@ -3,6 +3,8 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\LetterController;
 use App\Http\Controllers\Kabid\KabidLetterController;
+use App\Http\Controllers\Kasat\KasatLetterController;
+use App\Http\Controllers\Kasat\KasatReportController;
 use App\Http\Controllers\Kasi\KasiLetterController;
 use App\Http\Controllers\Kasi\KasiReportController;
 use App\Http\Controllers\Kabid\KabidReportController;
@@ -208,7 +210,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::group(['middleware' => ['role:Kasat|Administrator']], function () {
 
         Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
-        Route::get('/dashboard/kasat/log', [LogController::class, 'index'])->name('log.index');
+        Route::prefix('dashboard/kasat')
+        ->name('kasat.')
+        ->group(function () {
+            Route::get('log/data', [LogController::class, 'getData'])
+                ->name('log.data');
+    
+            Route::resource('log', LogController::class);
+        });  
 
         Route::prefix('dashboard/kasat')
         ->name('kasat.')
@@ -221,10 +230,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::prefix('dashboard/kasat')
         ->name('kasat.')
         ->group(function () {
-            Route::get('report/data', [KasatLetterController::class, 'getData'])
+            Route::get('report/data', [KasatReportController::class, 'getData'])
                 ->name('report.data');
     
-            Route::resource('report', KasatLetterController::class);
+            Route::resource('report', KasatReportController::class);
         });
 
     });

@@ -42,7 +42,7 @@
                 responsive: true,
                 scrollX: $(window).width() < 768, // Aktifkan scrollX hanya untuk layar kecil
 // scrollX: true, // Menambahkan scroll horizontal
-                ajax: "{{ route('kabid.report.data') }}",
+                ajax: "{{ route('kasat.report.data') }}",
                 columns: [{
                         data: 'id',
                         name: 'id',

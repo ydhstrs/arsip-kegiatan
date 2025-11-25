@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Report;
 use App\Models\Letter;
 use App\Models\User;
+use App\Models\Log;
 
 class StaffReportController extends Controller
 {
@@ -185,6 +186,13 @@ public function store(Request $request)
     Letter::where('id', $request->letter_id)->update([
         'status' => 'Laporan Dibuat'
     ]);
+    $nameUser = Auth::user()->name;
+    $idUser = Auth::id();
+    Log::create([
+        'activity' => "$nameUser Membuat Laporan Dengan Judul $request->title",
+        'created_by' => $idUser,
+    ]);
+
 
     return redirect()
         ->route('staff.report.index')
@@ -293,6 +301,14 @@ public function store(Request $request)
         }
         $report->status = 'Proses Kasi';
         $report->save();
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        Log::create([
+            'activity' => "$nameUser Merevisi Laporan Dengan Judul $request->title",
+            'created_by' => $idUser,
+        ]);
+    
+    
     
         
     return redirect()

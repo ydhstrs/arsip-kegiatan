@@ -24,7 +24,7 @@
                         placeholder="" required>
                 </div>
                 <div class="mb-6">
-                    <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                    <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Jabatan</label>
                     <select name="role" id="role" 
                             class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                             required>

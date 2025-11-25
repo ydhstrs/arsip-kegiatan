@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Letter;
 use App\Models\Report;
 use App\Models\User;
+use App\Models\Log;
+
 
 class KabidReportController extends Controller
 {
@@ -100,6 +102,12 @@ class KabidReportController extends Controller
         $validatedData['status'] = 'Revisi Kabid';
 
         $report->update($validatedData);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        Log::create([
+            'activity' => "$nameUser Merevisi Laporan Dengan Judul $report->title",
+            'created_by' => $idUser,
+        ]);
     
         return redirect('/dashboard/kabid/report')->with('success', 'Laporan Berhasil Direvisi');
     }
@@ -112,6 +120,12 @@ class KabidReportController extends Controller
         $report->update([
             'status' => 'Disetujui',
             // 'kasi_approved_at' => now(), // kalau mau
+        ]);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        Log::create([
+            'activity' => "$nameUser Menyetujui Laporan Dengan Judul $report->title",
+            'created_by' => $idUser,
         ]);
     
     

@@ -8,10 +8,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
 use App\Models\Letter;
+use App\Models\Log;
 
 class LetterController extends Controller
 {
@@ -96,6 +99,12 @@ class LetterController extends Controller
         $validatedData['status'] = 'Proses Kabid';
     
         Letter::create($validatedData);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        Log::create([
+            'activity' => "$nameUser Membuat Surat Dengan Nomor $request->no",
+            'created_by' => $idUser,
+        ]);
     
         return redirect('/dashboard/admin/letter')->with('success', 'Surat Baru Telah Ditambahkan');
     }
@@ -161,6 +170,13 @@ class LetterController extends Controller
     
         // UPDATE DATA
         $letter->update($validatedData);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        Log::create([
+            'activity' => "$nameUser Mengubah Surat Dengan Nomor $request->no",
+            'created_by' => $idUser,
+        ]);
+    
     
         return redirect('/dashboard/admin/letter')->with('success', 'Surat Berhasil Diupdate');
     }

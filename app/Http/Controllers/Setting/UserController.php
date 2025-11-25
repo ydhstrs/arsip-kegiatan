@@ -56,6 +56,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
+            'email_verified_at' => now(),
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
@@ -70,29 +71,40 @@ class UserController extends Controller
     {
         return view('backend.setting.user.edit', [
             'item' => $user,
+            'roles' => Role::all(),
             'title' => 'Edit User',
         ]);
     }
 
-    public function update(Request $request, User $room)
+    public function update(Request $request, User $user)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:11',
+        $request->validate([
+            'name' => 'required|max:255',
             'username' => 'required|max:255',
             'email' => 'required|email',
-            'password' => 'required',
+            'role' => 'required',
+            'password' => 'nullable|min:6', // password opsional
         ]);
-        User::where('id', $room->id)->update($validatedData);
-
-        return redirect('/dashboard/room')->with('success', 'User Telah Diedit');
+    
+        // Update data dasar
+        $user->update([
+            'name'     => $request->name,
+            'username' => $request->username,
+            'email'    => $request->email,
+            // hanya update password kalau diisi
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+        ]);
+    
+        // Update Role dengan Spatie
+        $user->syncRoles([$request->role]);
+    
+        return redirect('/dashboard/user')->with('success', 'User Telah Diedit');
     }
+    
 
     public function show(User $user)
     {
-        return view('backend.setting.user.detail', [
-            'item' => $user,
-            'title' => 'Detail Akun',
-        ]);
+
     }
 
     public function destroy(User $user)

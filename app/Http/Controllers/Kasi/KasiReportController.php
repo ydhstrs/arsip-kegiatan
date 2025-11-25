@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Letter;
 use App\Models\Report;
 use App\Models\User;
+use App\Models\Log;
 
 class KasiReportController extends Controller
 {
@@ -105,6 +106,12 @@ class KasiReportController extends Controller
         $validatedData['status'] = 'Revisi Kasi';
 
         $report->update($validatedData);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        Log::create([
+            'activity' => "$nameUser Merevisi Laporan Dengan Judul $report->title",
+            'created_by' => $idUser,
+        ]);
     
         return redirect('/dashboard/kasi/report')->with('success', 'Surat Berhasil Direvisi');
     }
@@ -118,6 +125,13 @@ class KasiReportController extends Controller
             'status' => 'Proses Kabid',
             // 'kasi_approved_at' => now(), // kalau mau
         ]);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        Log::create([
+            'activity' => "$nameUser Menyetujui Laporan Dengan Judul $report->title",
+            'created_by' => $idUser,
+        ]);
+    
     
     
         return redirect('/dashboard/kasi/report')->with('success', 'Surat Berhasil Disetujui');

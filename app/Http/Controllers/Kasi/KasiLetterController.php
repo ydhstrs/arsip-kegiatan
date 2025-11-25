@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Letter;
 use App\Models\User;
+use App\Models\Log;
 
 class KasiLetterController extends Controller
 {
@@ -81,6 +82,14 @@ class KasiLetterController extends Controller
         $validatedData['status'] = 'Proses Staff';
 
         $letter->update($validatedData);
+        $nameUser = Auth::user()->name;
+        $idUser = Auth::id();
+        $kasi = User::find($request->staff_user_id);
+        $kasiName = $kasi ? $kasi->name : 'Unknown User';
+        Log::create([
+            'activity' => "$nameUser Meneruskan Surat ke $kasiName Dengan Nomor $letter->no",
+            'created_by' => $idUser,
+        ]);
     
         return redirect('/dashboard/kasi/letter')->with('success', 'Surat Berhasil Diupdate');
     }

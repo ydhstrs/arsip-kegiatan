@@ -36,7 +36,7 @@
                 serverSide: true,
                 responsive: true,
                 scrollX: $(window).width() < 768, // Aktifkan scrollX hanya untuk layar kecil
-                ajax: "{{ route('dashboard.log.data') }}",
+                ajax: "{{ route('kasat.log.data') }}",
                 columns: [{
                         data: 'id',
                         name: 'id',
