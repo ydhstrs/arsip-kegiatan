@@ -41,9 +41,9 @@ class StaffReportController extends Controller
                 $btn = '';
     
                 // tampilkan hanya jika status = Proses Kabid
-                if ($report->status === 'zzz') {
+                if ($report->status === 'Revisi Kasi') {
                     $btn .= '<a href="'.route('staff.report.edit', $report->id).'" 
-                                class="btn btn-sm btn-primary">Teruskan</a> ';
+                                class="btn btn-sm btn-primary">Revisi</a> ';
                 }
     
                 // Tombol lihat selalu tampil
@@ -193,29 +193,113 @@ public function store(Request $request)
 
     
     
-    public function edit(Letter $letter)
+    public function edit(Report $report)
     {   
-        $staffs = User::role('Staff')->get();
         // $kasi = User::select(['id', 'no', 'status','source', 'desc', 'created_at'])->where()->get();
-        return view('backend.kasi.letter.edit', [
-            'item' => $letter,
-            'staffs' => $staffs,
-            'title' => 'Teruskan Surat',
+        return view('backend.staff.report.edit', [
+            'report' => $report,
+            'title' => 'Revisi Laporan',
         ]);
     }
 
-    public function update(Request $request, Letter $letter)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'staff_user_id' => 'required|max:11',
-            'remark_kasi' => '',
-        ]);
-        $validatedData['status'] = 'Proses Staff';
-
-        $letter->update($validatedData);
+        $report = Report::findOrFail($id);
     
-        return redirect('/dashboard/kasi/letter')->with('success', 'Surat Berhasil Diupdate');
+        // update data text
+        $report->title = $request->title;
+        $report->desc = $request->desc;
+    
+    /* ================================
+       COMPRESS FILE 1
+    =================================*/
+    if ($request->hasFile('file1')) {
+        // if ($request->old_file1) {
+        //     Storage::disk('public')->delete($request->old_file1);
+        // }
+        if ($request->old_file1) {
+            Storage::delete('public/' . $request->old_file1);
+        }
+        $file = $request->file('file1');
+        $ext = strtolower($file->getClientOriginalExtension());
+
+        $filename = uniqid() . '.' . ($ext === 'heic' ? 'jpg' : $ext);
+        $path = storage_path('app/public/report_images/' . $filename);
+
+        // Jika image → compress
+        if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
+
+            $image = Image::make($file->getRealPath());
+
+            // resize max 2000px
+            $image->resize(2000, null, function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+
+            // simpan kualitas 80
+            $image->save($path, 80);
+        } else {
+            // fallback (harusnya ga mungkin)
+            $file->storeAs('public/report_images', $filename);
+        }
+
+        $file1Path = 'report_images/' . $filename;
+        $report->file1 = $file1Path;
     }
+
+    /* ================================
+       COMPRESS FILE 2
+    =================================*/
+    if ($request->hasFile('file2')) {
+        // if ($request->old_file2) {
+        //     Storage::disk('public')->delete($request->old_file2);
+        // }
+        if ($request->old_file2) {
+            Storage::delete('public/' . $request->old_file2);
+        }
+
+        $file = $request->file('file2');
+        $ext = strtolower($file->getClientOriginalExtension());
+
+        $filename = uniqid() . '.' . ($ext === 'heic' ? 'jpg' : $ext);
+        $path = storage_path('app/public/report_images/' . $filename);
+
+        if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
+
+            $image = Image::make($file->getRealPath());
+
+            $image->resize(2000, null, function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+
+            $image->save($path, 80);
+        } else {
+            $file->storeAs('public/report_images', $filename);
+        }
+
+        $file2Path = 'report_images/' . $filename;
+        $report->file2 = $file2Path;
+
+    }
+    
+        // VIDEO
+        if ($request->hasFile('video')) {
+            if ($report->video) {
+                Storage::delete($report->video);
+            }
+            $report->video = $request->file('video')->store('videos');
+        }
+        $report->status = 'Proses Kasi';
+        $report->save();
+    
+        
+    return redirect()
+    ->route('staff.report.index')
+    ->with('status', 'Laporan berhasil direvisi');
+    }
+    
     
     public function show(Report $report)
     {

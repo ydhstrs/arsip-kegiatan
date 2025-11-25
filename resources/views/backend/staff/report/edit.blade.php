@@ -3,102 +3,117 @@
 @section('title', $title)
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+<div class="container-xxl flex-grow-1 container-p-y">
 
-        @if (session('status'))
-            <div class="card-body">
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            </div>
-        @endif
+    <a href="/dashboard/staff/report" class="btn btn-primary mb-4">Kembali</a>
 
-        <div class="bg-white block w-full overflow-x-auto p-8">
-            <P class="mb-10">{{ $title }}</P>
-            <form method="post" action="/dashboard/admin/letter/{{ $item->id }}" enctype="multipart/form-data">
-                @csrf
-                @method('put')
-                <div class="mb-6">
-                    <label for="no" class="block mb-2 text-sm font-medium text-gray-900 ">Nomor Surat</label>
-                    <input type="text" id="no" name="no"
-                        class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="" value="{{ $item->no }}" required>
-                </div>
-                <div class="mb-6">
-                    <label for="source" class="block mb-2 text-sm font-medium text-gray-900 ">Asal Surat</label>
-                    <input type="text" id="source" name="source"
-                        class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="" value="{{ $item->source }}" required>
-                </div>
-                <div class="mb-6">
-                    <label for="floor" class="block mb-2 text-sm font-medium text-gray-900 ">Keterangan</label>
-                    <textarea type="text" id="remark" name="remark"
-                        class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                        placeholder="">{{ $item->remark }} </textarea>
-                </div>
+    <p class="mb-10">{{ $title }}</p>
 
-                <div class="mb-6">
-                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Upload file</label>
-                
-                    @if ($item->file)
-                        <img src="{{ Storage::url($item->file) }}" 
-                             alt="Preview" 
-                             id="imgPreview" 
-                             class="rounded max-h-96 mb-3">
-                    @else
-                        <img src="" id="imgPreview" class="rounded max-h-96 mb-3 hidden">
-                    @endif
-                
-                    <input
-                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer 
-                        @error('file') border-red-600 @enderror"
-                        id="file"
-                        name="file"
-                        type="file"
-                        accept="image/*,application/pdf"
-                        onchange="previewImage()">
-                
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">PDF, PNG, JPG (MAX. 2MB).</p>
-                
-                    @error('file')
-                        <div class="text-red-600">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                
+    <form method="post" action="/dashboard/staff/report/{{ $report->id }}" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-                <button type="submit"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-            </form>
+        {{-- NOMOR SURAT --}}
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Nomor Surat Rujukan</label>
+            <input type="text" value="{{ $report->letter->no }}" class="form-control bg-gray-200" disabled>
+            <input type="hidden" name="letter_id" value="{{ $report->letter_id }}">
         </div>
 
-    </div>
+        {{-- JUDUL --}}
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Judul Laporan</label>
+            <input type="text" id="title" name="title"
+                value="{{ old('title', $report->title) }}"
+                class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
+                required>
+        </div>
 
-    <script>
-        function previewImage() {
-            const fileInput = document.getElementById('file');
-            const imgPreview = document.getElementById('imgPreview');
-            const file = fileInput.files[0];
-        
-            if (!file) return;
-        
-            // Kalau PDF, jangan ditampilkan sebagai image
-            if (file.type === "application/pdf") {
-                imgPreview.classList.add("hidden");
-                imgPreview.src = "";
-                return;
-            }
-        
-            const reader = new FileReader();
-        
-            reader.onload = function(e) {
-                imgPreview.src = e.target.result;
-                imgPreview.classList.remove("hidden");
-            };
-        
-            reader.readAsDataURL(file);
-        }
-        </script>
-        
+        {{-- FOTO 1 --}}
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Upload Foto 1</label>
+
+            @if ($report->file1)
+                <img id="imgPreview1" class="w-56 mb-2 rounded"
+                    src="{{ Storage::url($report->file1) }}">
+            @else
+                <img id="imgPreview1" class="w-56 mb-2 rounded hidden">
+            @endif
+            <input type="hidden" name="old_file1" value="{{ $report->file1 }}">
+            <input type="file" id="file1" name="file1" onchange="previewImage1()"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
+        </div>
+
+        {{-- FOTO 2 --}}
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Upload Foto 2</label>
+
+            @if ($report->file2)
+                <img id="imgPreview2" class="w-56 mb-2 rounded"
+                    src="{{ Storage::url($report->file2) }}">
+            @else
+                <img id="imgPreview2" class="w-56 mb-2 rounded hidden">
+            @endif
+            <input type="hidden" name="old_file2" value="{{ $report->file2 }}">
+            <input type="file" id="file2" name="file2" onchange="previewImage2()"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
+        </div>
+
+        {{-- VIDEO --}}
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Upload Video</label>
+
+            @if ($report->video)
+                <video id="vidPreview" class="w-56 mb-2 rounded" controls>
+                    <source src="{{ Storage::url($report->video) }}" type="video/mp4">
+                </video>
+            @else
+                <video id="vidPreview" class="w-56 mb-2 rounded hidden" controls></video>
+            @endif
+            <input type="hidden" name="old_video" value="{{ $report->video }}">
+            <input type="file" id="video" name="video" accept="video/*" onchange="previewVideo()"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
+        </div>
+
+        {{-- DESKRIPSI --}}
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+            <textarea id="desc" name="desc"
+                class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
+            >{{ old('desc', $report->desc) }}</textarea>
+        </div>
+
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-sm px-5 py-2.5">
+            Update
+        </button>
+    </form>
+</div>
+
+{{-- SCRIPT PREVIEW --}}
+<script>
+    function previewImage1() {
+        const file = file1.files[0];
+        const img = document.getElementById("imgPreview1");
+        if (!file) return;
+        img.src = URL.createObjectURL(file);
+        img.classList.remove("hidden");
+    }
+
+    function previewImage2() {
+        const file = file2.files[0];
+        const img = document.getElementById("imgPreview2");
+        if (!file) return;
+        img.src = URL.createObjectURL(file);
+        img.classList.remove("hidden");
+    }
+
+    function previewVideo() {
+        const file = video.files[0];
+        const vid = document.getElementById("vidPreview");
+        if (!file) return;
+        vid.src = URL.createObjectURL(file);
+        vid.classList.remove("hidden");
+    }
+</script>
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Kasi;
+namespace App\Http\Controllers\Kabid;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ use App\Models\Letter;
 use App\Models\Report;
 use App\Models\User;
 
-class KasiReportController extends Controller
+class KabidReportController extends Controller
 {
 
     public function getData(Request $request)
@@ -25,7 +25,7 @@ class KasiReportController extends Controller
         // include relasi letter agar bisa ambil 'no'
         $reports = Report::with('letter:id,no')
             ->select(['id', 'letter_id', 'title', 'status', 'desc', 'created_at'])
-            ->where('kasi_user_id', $userId)
+            ->where('status', 'Proses Kabid')
             ->get();
     
         return DataTables::of($reports)
@@ -40,21 +40,21 @@ class KasiReportController extends Controller
                 $btn = '';
     
                 // tampilkan hanya jika status = Proses Kabid
-                if ($report->status === 'Proses Kasi' || $report->status === 'Revisi Kabid') {
+                if ($report->status === 'Proses Kabid') {
                     $btn .= '
-                    <form action="'.route('kasi.report.approve', $report->id).'" method="POST" style="display:inline;">
+                    <form action="'.route('kabid.report.approve', $report->id).'" method="POST" style="display:inline;">
                         '.csrf_field().'
                         <button type="submit" class="btn btn-sm btn-primary"
                             onclick="return confirm(\'Yakin setujui laporan ini?\')">Disetujui</button>
                     </form>
                     ';
-                    $btn .= '<a href="'.route('kasi.report.edit', $report->id).'" 
+                    $btn .= '<a href="'.route('kabid.report.edit', $report->id).'" 
                                 class="btn btn-sm btn-primary">Revisi</a> ';
                                 
                 }
     
                 // Tombol lihat selalu tampil
-                $btn .= '<a href="'.route('kasi.report.show', $report->id).'" 
+                $btn .= '<a href="'.route('kabid.report.show', $report->id).'" 
                             class="btn btn-sm btn-info">Lihat</a>';
     
                 return $btn;
@@ -65,7 +65,7 @@ class KasiReportController extends Controller
     
     public function index(): View
     {
-        return view('backend.kasi.report.index', [
+        return view('backend.kabid.report.index', [
             // 'items' => Room::latest()->paginate(10),
             'title' => 'Surat',
         ]);
@@ -85,23 +85,23 @@ class KasiReportController extends Controller
     {   
         $staffs = User::role('Staff')->get();
         // $kasi = User::select(['id', 'no', 'status','source', 'desc', 'created_at'])->where()->get();
-        return view('backend.kasi.report.edit', [
+        return view('backend.kabid.report.edit', [
             'item' => $report,
             'staffs' => $staffs,
-            'title' => 'Teruskan Laporan',
+            'title' => 'Revisi Laporan',
         ]);
     }
 
     public function update(Request $request, Report $report)
     {
         $validatedData = $request->validate([
-            'remark_kasi' => '',
+            'remark_kabid' => '',
         ]);
-        $validatedData['status'] = 'Revisi Kasi';
+        $validatedData['status'] = 'Revisi Kabid';
 
         $report->update($validatedData);
     
-        return redirect('/dashboard/kasi/report')->with('success', 'Surat Berhasil Direvisi');
+        return redirect('/dashboard/kabid/report')->with('success', 'Laporan Berhasil Direvisi');
     }
 
     public function approve(Request $request, $id)

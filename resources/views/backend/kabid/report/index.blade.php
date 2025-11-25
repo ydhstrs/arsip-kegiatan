@@ -12,7 +12,7 @@
 
         <h1 class="text-center">{{ $title }}</h1>
 
-        <a href="/dashboard/admin/letter/create" class="btn btn-primary mb-4">Tambah {{ $title }}</a>
+        {{-- <a href="/dashboard/admin/letter/create" class="btn btn-primary mb-4">Tambah {{ $title }}</a> --}}
 
         <div class="card">
             <div class="card-body"class="table table-striped table-bordered w-full">
@@ -20,8 +20,8 @@
                     <thead>
                         <tr class="text-center">
                             <th>No</th>
+                            <th>Judul Laporan</th>
                             <th>Nomor Surat</th>
-                            <th>Asal Surat</th>
                             <th>Status</th>
                             <th>Deskripsi</th>
                             <th>Aksi</th>
@@ -42,7 +42,7 @@
                 responsive: true,
                 scrollX: $(window).width() < 768, // Aktifkan scrollX hanya untuk layar kecil
 // scrollX: true, // Menambahkan scroll horizontal
-                ajax: "{{ route('admin.letter.data') }}",
+                ajax: "{{ route('kabid.report.data') }}",
                 columns: [{
                         data: 'id',
                         name: 'id',
@@ -51,12 +51,12 @@
                         }
                     },
                     {
-                        data: 'no',
-                        name: 'no'
+                        data: 'title',
+                        name: 'title'
                     },
                     {
-                        data: 'source',
-                        name: 'source'
+                        data: 'no_surat',
+                        name: 'no_surat'
                     },
                     {
                         data: 'status',

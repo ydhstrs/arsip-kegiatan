@@ -18,7 +18,7 @@ class LetterController extends Controller
 
      public function getData(Request $request)
     {
-        $letters = Report::select(['id', 'no', 'status','source', 'desc', 'created_at'])->get();
+        $letters = Letter::select(['id', 'no', 'status','source', 'desc', 'created_at'])->get();
         return DataTables::of($letters)
             ->addColumn('action', function ($letter) {
                 return '<a href="'.route('admin.letter.edit', $letter->id).'" class="btn btn-sm btn-primary">Edit</a>

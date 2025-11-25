@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\LetterController;
 use App\Http\Controllers\Kabid\KabidLetterController;
 use App\Http\Controllers\Kasi\KasiLetterController;
 use App\Http\Controllers\Kasi\KasiReportController;
+use App\Http\Controllers\Kabid\KabidReportController;
 use App\Http\Controllers\Staff\StaffLetterController;
 use App\Http\Controllers\Staff\StaffReportController;
 use App\Http\Controllers\Master\AssetController;
@@ -104,7 +105,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::resource('letter', LetterController::class);
         });
 
-        
     });
 
     
@@ -117,10 +117,20 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         ->group(function () {
             Route::get('letter/data', [KabidLetterController::class, 'getData'])
                 ->name('letter.data');
-    
-            Route::resource('letter', KabidLetterController::class);
-        });
 
+            Route::resource('letter', KabidLetterController::class);
+
+        });
+        Route::prefix('dashboard/kabid')
+        ->name('kabid.')
+        ->group(function () {
+            Route::get('report/data', [KabidReportController::class, 'getData'])
+            ->name('report.data');
+
+            Route::resource('report', KabidReportController::class);
+        });
+        Route::post('/kabid/report/{id}/approve', [KabidReportController::class, 'approve'])
+        ->name('kabid.report.approve');  
         
     });
 
@@ -143,7 +153,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 ->name('report.data');
     
             Route::resource('report', KasiReportController::class);
-        });        
+        });
+        // Update laporan
+        Route::post('/kasi/report/{id}/approve', [KasiReportController::class, 'approve'])
+        ->name('kasi.report.approve');  
     });
     Route::group(['middleware' => ['role:Staff|Administrator']], function () {
 
@@ -187,6 +200,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                                     // Edit laporan
                 Route::get('report/{report}/show', [StaffReportController::class, 'show'])
                 ->name('report.show');
+
+
     
             });
     });
