@@ -214,7 +214,7 @@
             </a>
         </li>
         <li class="menu-item {{ request()->is('log') ? 'active' : '' }}">
-            <a href="{{ route('log.index') }}" class="menu-link">
+            <a href="{{ route('kasat.log.index') }}" class="menu-link">
                 <i class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                         viewBox="0 0 512 512">
                         <path fill="currentColor"
