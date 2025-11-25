@@ -205,6 +205,29 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     
             });
     });
+    Route::group(['middleware' => ['role:Kasat|Administrator']], function () {
+
+        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+        Route::get('/dashboard/kasat/log', [LogController::class, 'index'])->name('log.index');
+
+        Route::prefix('dashboard/kasat')
+        ->name('kasat.')
+        ->group(function () {
+            Route::get('letter/data', [KasatLetterController::class, 'getData'])
+                ->name('letter.data');
+    
+            Route::resource('letter', KasatLetterController::class);
+        });  
+        Route::prefix('dashboard/kasat')
+        ->name('kasat.')
+        ->group(function () {
+            Route::get('report/data', [KasatLetterController::class, 'getData'])
+                ->name('report.data');
+    
+            Route::resource('report', KasatLetterController::class);
+        });
+
+    });
     
 });
 

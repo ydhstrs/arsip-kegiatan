@@ -197,6 +197,35 @@
         @endrole
         @role('Kabid')
         <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Kasat</span>
+        </li>
+        <li class=" menu-item {{ request()->is('dashboard/kasat/letter*') ? 'active' : '' }}">
+            <a href="{{ route('kasat.letter.index') }}" class="menu-link">
+                <i class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                        viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                            d="M440 424V88h-88V13.005L88 58.522V424H16v32h86.9L352 490.358V120h56v336h88v-32Zm-120 29.642l-200-27.586V85.478L320 51Z" />
+                        <path fill="currentColor" d="M256 232h32v64h-32z" />
+                    </svg></i>
+
+                <div data-i18n="Pengguna">Surat</div>
+            </a>
+        </li>
+        <li class=" menu-item {{ request()->is('dashboard/kasat/report*') ? 'active' : '' }}">
+            <a href="{{ route('kasat.report.index') }}" class="menu-link">
+                <i class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                        viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                            d="M440 424V88h-88V13.005L88 58.522V424H16v32h86.9L352 490.358V120h56v336h88v-32Zm-120 29.642l-200-27.586V85.478L320 51Z" />
+                        <path fill="currentColor" d="M256 232h32v64h-32z" />
+                    </svg></i>
+
+                <div data-i18n="Pengguna">Laporan</div>
+            </a>
+        </li>
+        @endrole
+        @role('Kabid')
+        <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Kabid</span>
         </li>
         <li class=" menu-item {{ request()->is('dashboard/kabid/letter*') ? 'active' : '' }}">

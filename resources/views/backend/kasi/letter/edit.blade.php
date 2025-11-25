@@ -64,7 +64,7 @@
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
                         <textarea disabled
-                            class="form-control bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5">{{ $item->remark }}</textarea>
+                            class="form-control bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5">{{ $item->desc }}</textarea>
                     </div>
             
                     <div class="mb-6">
