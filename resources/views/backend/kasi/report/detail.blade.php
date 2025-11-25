@@ -6,7 +6,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="bg-white block w-full overflow-x-auto p-8 shadow-md rounded-xl">
-        <a href="/dashboard/kabid/report" class="btn btn-primary mb-4">Kembali</a>
+        <a href="/dashboard/kasi/report" class="btn btn-primary mb-4">Kembali</a>
 
         <h3 class="text-xl font-semibold mb-6">{{ $title }}</h3>
 
@@ -98,11 +98,6 @@
             @endif
         </div>
 
-        {{-- Button Back --}}
-        <a href="{{ url()->previous() }}"
-           class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
-            Kembali
-        </a>
 
     </div>
 </div>

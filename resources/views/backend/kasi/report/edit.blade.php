@@ -14,6 +14,7 @@
         @endif
 
         <div class="bg-white block w-full overflow-x-auto p-8">
+        <a href="/dashboard/kasi/report" class="btn btn-primary mb-4">Kembali</a>
             <P class="mb-10">{{ $title }}</P>
             <form method="post" action="/dashboard/kasi/report/{{ $item->id }}" enctype="multipart/form-data">
                 @csrf
