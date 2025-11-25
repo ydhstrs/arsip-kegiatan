@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignId('kabid_user_id')->default(0);
             $table->timestamp('kabid_edited_at')->nullable();
             $table->foreignId('kasi_user_id')->default(0);
-            $table->timestamp('kabid_edited_at')->nullable();
+            $table->timestamp('kasi_edited_at')->nullable();
             $table->foreignId('staff_user_id')->default(0);
             $table->timestamp('staff_edited_at')->nullable();
             $table->timestamps();

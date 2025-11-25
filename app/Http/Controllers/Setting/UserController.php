@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-
+use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     public function getData(Request $request)
