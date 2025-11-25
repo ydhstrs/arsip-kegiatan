@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\Setting;
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Hash;
-
-use App\Models\User;
 
 class UserController extends Controller
 {
-
-     public function getData(Request $request)
+    public function getData(Request $request)
     {
         $users = User::select(['id', 'name', 'username', 'email', 'created_at'])->get();
+
         return DataTables::of($users)
             ->addColumn('action', function ($item) {
                 return '<a href="'.route('user.edit', $item->id).'" class="btn btn-sm btn-primary">Edit</a>
@@ -28,6 +25,7 @@ class UserController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
     public function index(): View
     {
         return view('backend.setting.user.index', [
@@ -41,25 +39,33 @@ class UserController extends Controller
         return view('backend.setting.user.create', [
             // 'charges' => ChargeType::all(),
             'title' => 'Tambah Pengguna',
-            'roles' => Role::all(), 
+            'roles' => Role::all(),
         ]);
     }
+
     public function store(Request $request)
     {
-        // echo $request;
-        $validatedData = $request->validate([
-            'name' => 'required|max:11',
-            'username' => 'required|max:255',
-            'email' => 'required|email',
-            'password' => 'required',
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'role' => 'required',
         ]);
-        $validatedData['password'] = Hash::make($request->password);
 
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
 
-        User::create($validatedData);
+        // Assign Role
+        $user->assignRole($request->role);
 
         return redirect('/dashboard/user')->with('success', 'User Baru Telah Ditambahkan');
     }
+
     public function edit(User $user)
     {
         return view('backend.setting.user.edit', [
@@ -88,6 +94,7 @@ class UserController extends Controller
             'title' => 'Detail Akun',
         ]);
     }
+
     public function destroy(User $user)
     {
         $room = User::findOrFail($user->id);

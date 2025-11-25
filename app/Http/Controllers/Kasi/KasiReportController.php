@@ -40,7 +40,7 @@ class KasiReportController extends Controller
                 $btn = '';
     
                 // tampilkan hanya jika status = Proses Kabid
-                if ($report->status === 'Proses Kasi' || $report->status === 'Revisi Kabid') {
+                if ($report->status === 'Proses Kasi') {
                     $btn .= '
                     <form action="'.route('kasi.report.approve', $report->id).'" method="POST" style="display:inline;">
                         '.csrf_field().'
@@ -50,6 +50,11 @@ class KasiReportController extends Controller
                     ';
                     $btn .= '<a href="'.route('kasi.report.edit', $report->id).'" 
                                 class="btn btn-sm btn-primary">Revisi</a> ';
+                                
+                }
+                if ($report->status === 'Revisi Kabid') {
+                    $btn .= '<a href="'.route('kasi.report.edit', $report->id).'" 
+                                class="btn btn-sm btn-primary">Teruskan Ke Staff</a> ';
                                 
                 }
     
