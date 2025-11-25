@@ -121,7 +121,7 @@ class KasiReportController extends Controller
     
     public function show(Letter $letter)
     {
-        return view('backend.kasi.letter.detail', [
+        return view('backend.kasi.report.detail', [
             'item' => $letter,
             'title' => 'Detail Surat',
         ]);

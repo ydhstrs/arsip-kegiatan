@@ -14,7 +14,7 @@
         @endif
 
         <div class="bg-white block w-full overflow-x-auto p-8">
-            <a href="/dashboard/kasi/letter" class="btn btn-primary mb-4">Kembali</a>
+            <a href="/dashboard/staff/letter" class="btn btn-primary mb-4">Kembali</a>
             <P class="mb-10">{{ $title }}</P>
             <form method="post" action="" enctype="multipart/form-data">
                 @csrf
