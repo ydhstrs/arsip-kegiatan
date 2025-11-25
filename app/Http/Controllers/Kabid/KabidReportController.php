@@ -115,7 +115,7 @@ class KabidReportController extends Controller
         ]);
     
     
-        return redirect('/dashboard/kabid/report')->with('success', 'Surat Berhasil Disetujui');
+        return redirect('/dashboard/kabid/report')->with('success', 'Laporan Berhasil Disetujui');
 
     }
     

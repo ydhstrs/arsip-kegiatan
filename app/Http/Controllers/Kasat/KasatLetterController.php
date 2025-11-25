@@ -27,7 +27,7 @@ class KasatLetterController extends Controller
                 $btn = '';
     
                 // Tombol lihat selalu tampil
-                $btn .= '<a href="'.route('kasi.letter.show', $letter->id).'" 
+                $btn .= '<a href="'.route('kasat.letter.show', $letter->id).'" 
                             class="btn btn-sm btn-info">Lihat</a>';
     
                 return $btn;
@@ -38,7 +38,7 @@ class KasatLetterController extends Controller
     
     public function index(): View
     {
-        return view('backend.kabid.letter.index', [
+        return view('backend.kasat.letter.index', [
             // 'items' => Room::latest()->paginate(10),
             'title' => 'Surat',
         ]);
@@ -56,31 +56,17 @@ class KasatLetterController extends Controller
     
     public function edit(Letter $letter)
     {   
-        $kasis = User::role('Kasi')->get();
-        // $kasi = User::select(['id', 'no', 'status','source', 'desc', 'created_at'])->where()->get();
-        return view('backend.kabid.letter.edit', [
-            'item' => $letter,
-            'kasis' => $kasis,
-            'title' => 'Teruskan Surat',
-        ]);
+
     }
 
     public function update(Request $request, Letter $letter)
     {
-        $validatedData = $request->validate([
-            'kasi_user_id' => 'required|max:11',
-            'remark_kabid' => '',
-        ]);
-        $validatedData['status'] = 'Proses Kasi';
 
-        $letter->update($validatedData);
-    
-        return redirect('/dashboard/kabid/letter')->with('success', 'Surat Berhasil Diupdate');
     }
     
     public function show(Letter $letter)
     {
-        return view('backend.kabid.letter.detail', [
+        return view('backend.kasat.letter.detail', [
             'item' => $letter,
             'title' => 'Detail Surat',
         ]);

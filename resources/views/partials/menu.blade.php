@@ -195,7 +195,7 @@
             </a>
         </li>
         @endrole
-        @role('Kabid')
+        @role('Kasat')
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Kasat</span>
         </li>

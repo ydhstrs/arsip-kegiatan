@@ -25,7 +25,6 @@ class KasatReportController extends Controller
         // include relasi letter agar bisa ambil 'no'
         $reports = Report::with('letter:id,no')
         ->select(['id', 'letter_id', 'title', 'status', 'desc', 'created_at'])
-        ->whereIn('status', ['Proses Kabid', 'Disetujui'])
         ->get();
     
         return DataTables::of($reports)
@@ -40,7 +39,7 @@ class KasatReportController extends Controller
                 $btn = '';
 
                 // Tombol lihat selalu tampil
-                $btn .= '<a href="'.route('kabid.report.show', $report->id).'" 
+                $btn .= '<a href="'.route('kasat.report.show', $report->id).'" 
                             class="btn btn-sm btn-info">Lihat</a>';
     
                 return $btn;
@@ -51,9 +50,9 @@ class KasatReportController extends Controller
     
     public function index(): View
     {
-        return view('backend.kabid.report.index', [
+        return view('backend.kasat.report.index', [
             // 'items' => Room::latest()->paginate(10),
-            'title' => 'Surat',
+            'title' => 'Laporan',
         ]);
     }
 
@@ -69,51 +68,21 @@ class KasatReportController extends Controller
     
     public function edit(Report $report)
     {   
-        $staffs = User::role('Staff')->get();
-        // $kasi = User::select(['id', 'no', 'status','source', 'desc', 'created_at'])->where()->get();
-        return view('backend.kabid.report.edit', [
-            'item' => $report,
-            'staffs' => $staffs,
-            'title' => 'Revisi Laporan',
-        ]);
+
     }
 
     public function update(Request $request, Report $report)
     {
-        $validatedData = $request->validate([
-            'remark_kabid' => '',
-        ]);
-        $validatedData['status'] = 'Revisi Kabid';
-
-        $report->update($validatedData);
-    
-        return redirect('/dashboard/kabid/report')->with('success', 'Laporan Berhasil Direvisi');
-    }
-
-    public function approve(Request $request, $id)
-    {
-        $report = Report::findOrFail($id);
-    
-        // Update status ke Proses Kabid
-        $report->update([
-            'status' => 'Disetujui',
-            // 'kasi_approved_at' => now(), // kalau mau
-        ]);
-    
-    
-        return redirect('/dashboard/kabid/report')->with('success', 'Surat Berhasil Disetujui');
 
     }
+
     
     public function show(Report $report)
     {
-        return view('backend.kabid.report.detail', [
+        return view('backend.kasat.report.detail', [
             'item' => $report,
             'title' => 'Detail Laporan',
         ]);
     }
-    public function destroy(Letter $letter)
-    {
-
-    }
 }
+

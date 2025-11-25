@@ -67,7 +67,7 @@ class KasiReportController extends Controller
     {
         return view('backend.kasi.report.index', [
             // 'items' => Room::latest()->paginate(10),
-            'title' => 'Surat',
+            'title' => 'Laporan',
         ]);
     }
 
@@ -123,7 +123,7 @@ class KasiReportController extends Controller
     {
         return view('backend.kasi.report.detail', [
             'item' => $report,
-            'title' => 'Detail Surat',
+            'title' => 'Detail Laporan',
         ]);
     }
     public function destroy(Report $report)
