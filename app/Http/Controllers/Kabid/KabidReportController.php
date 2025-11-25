@@ -24,9 +24,9 @@ class KabidReportController extends Controller
     
         // include relasi letter agar bisa ambil 'no'
         $reports = Report::with('letter:id,no')
-            ->select(['id', 'letter_id', 'title', 'status', 'desc', 'created_at'])
-            ->where('status', 'Proses Kabid')
-            ->get();
+        ->select(['id', 'letter_id', 'title', 'status', 'desc', 'created_at'])
+        ->whereIn('status', ['Proses Kabid', 'Disetujui'])
+        ->get();
     
         return DataTables::of($reports)
     
@@ -110,20 +110,20 @@ class KabidReportController extends Controller
     
         // Update status ke Proses Kabid
         $report->update([
-            'status' => 'Proses Kabid',
+            'status' => 'Disetujui',
             // 'kasi_approved_at' => now(), // kalau mau
         ]);
     
     
-        return redirect('/dashboard/kasi/report')->with('success', 'Surat Berhasil Disetujui');
+        return redirect('/dashboard/kabid/report')->with('success', 'Surat Berhasil Disetujui');
 
     }
     
-    public function show(Letter $letter)
+    public function show(Report $report)
     {
-        return view('backend.kasi.letter.detail', [
-            'item' => $letter,
-            'title' => 'Detail Surat',
+        return view('backend.kabid.report.detail', [
+            'item' => $report,
+            'title' => 'Detail Laporan',
         ]);
     }
     public function destroy(Letter $letter)
