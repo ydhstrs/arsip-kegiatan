@@ -119,14 +119,14 @@ class KasiReportController extends Controller
 
     }
     
-    public function show(Letter $letter)
+    public function show(Report $report)
     {
         return view('backend.kasi.report.detail', [
-            'item' => $letter,
+            'item' => $report,
             'title' => 'Detail Surat',
         ]);
     }
-    public function destroy(Letter $letter)
+    public function destroy(Report $report)
     {
 
     }

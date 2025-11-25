@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignId('user_id')->default(0);
             $table->foreignId('letter_id')->default(0);
             $table->foreignId('kasi_user_id')->default(0);
+            $table->foreignId('kasi_approved_by')->default(0);
             $table->foreignId('kasat_user_id')->default(0);
             $table->foreignId('kabid_user_id')->default(0);
             $table->foreignId('staff_user_id')->default(0);
