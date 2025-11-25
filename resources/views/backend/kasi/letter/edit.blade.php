@@ -71,9 +71,18 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900">File</label>
             
                         @if ($item->file)
-                            <img src="{{ Storage::url($item->file) }}"
-                                class="rounded max-h-96 mb-3 border shadow">
+                        @php
+                            $ext = strtolower(pathinfo($item->file, PATHINFO_EXTENSION));
+                        @endphp
+    
+                        @if ($ext === 'pdf')
+                            <a href="{{ Storage::url($item->file) }}" target="_blank" class="btn btn-secondary mb-3">
+                                Lihat PDF
+                            </a>
+                        @else
+                            <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3">
                         @endif
+                    @endif
                     </div>
                     <div class="mb-6">
                         <label for="kasi_user_id" class="block mb-2 text-sm font-medium text-gray-900">Kepala Seksi</label>

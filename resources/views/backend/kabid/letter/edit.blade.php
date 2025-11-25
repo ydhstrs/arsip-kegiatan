@@ -64,16 +64,25 @@
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
                         <textarea disabled
-                            class="form-control bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5">{{ $item->remark }}</textarea>
+                            class="form-control bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5">{{ $item->desc }}</textarea>
                     </div>
             
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">File</label>
             
                         @if ($item->file)
-                            <img src="{{ Storage::url($item->file) }}"
-                                class="rounded max-h-96 mb-3 border shadow">
+                        @php
+                            $ext = strtolower(pathinfo($item->file, PATHINFO_EXTENSION));
+                        @endphp
+    
+                        @if ($ext === 'pdf')
+                            <a href="{{ Storage::url($item->file) }}" target="_blank" class="btn btn-secondary mb-3">
+                                Lihat PDF
+                            </a>
+                        @else
+                            <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3">
                         @endif
+                    @endif
                     </div>
                 </div>
             

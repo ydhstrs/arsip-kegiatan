@@ -40,8 +40,7 @@
                         class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:placeholder-gray-400 @error('file') border-red-600 @enderror"
                         aria-describedby="file_input_help" id="file" name="file" type="file"
                         onchange="previewImage()" value="{{ old('image') }}">
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG (MAX.
-                        800x400px).</p>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, PNG, JPG</p>
                     @error('image')
                         <div class="text-red-600">
                             {{ $message }}
