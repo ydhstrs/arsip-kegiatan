@@ -23,11 +23,11 @@ return new class extends Migration
             $table->text('remark_kasi')->nullable();
             $table->text('remark_kabid')->nullable();
             $table->foreignId('kabid_user_id')->default(0);
-            $table->timestamps('kabid_edited_at')->nullable();
+            $table->timestamp('kabid_edited_at')->nullable();
             $table->foreignId('kasi_user_id')->default(0);
-            $table->timestamps('kabid_edited_at')->nullable();
+            $table->timestamp('kabid_edited_at')->nullable();
             $table->foreignId('staff_user_id')->default(0);
-            $table->timestamps('staff_edited_at')->nullable();
+            $table->timestamp('staff_edited_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

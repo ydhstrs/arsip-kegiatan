@@ -26,13 +26,13 @@ return new class extends Migration
             $table->foreignId('user_id')->default(0);
             $table->foreignId('letter_id')->default(0);
             $table->foreignId('kasi_user_id')->default(0);
-            $table->timestamps('kasi_approved_at')->nullable();
-            $table->timestamps('kasi_edited_at')->nullable();
+            $table->timestamp('kasi_approved_at')->nullable();
+            $table->timestamp('kasi_edited_at')->nullable();
             $table->foreignId('kabid_user_id')->default(0);
-            $table->timestamps('kabid_approved_at')->nullable();
-            $table->timestamps('kabid_edited_at')->nullable();
+            $table->timestamp('kabid_approved_at')->nullable();
+            $table->timestamp('kabid_edited_at')->nullable();
             $table->foreignId('staff_user_id')->default(0);
-            $table->timestamps('staff_edited_at')->nullable();
+            $table->timestamp('staff_edited_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
