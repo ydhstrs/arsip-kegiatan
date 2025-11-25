@@ -32,6 +32,14 @@ class UserSeeder extends Seeder
                     'password'          => Hash::make('admin'),
                 ]);
                 $admin->assignRole('Admin');
+                $kasat = User::create([
+                    'name'              => 'Kasat',
+                    'username'          => 'kasat',
+                    'email'             => 'kasat@gmail.com',
+                    'email_verified_at' => now(),
+                    'password'          => Hash::make('kasat'),
+                ]);
+                $kasat->assignRole('Kasat');
                 $kabid = User::create([
                     'name'              => 'Kabid',
                     'username'          => 'kabid',

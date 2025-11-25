@@ -24,6 +24,18 @@
                         placeholder="" required>
                 </div>
                 <div class="mb-6">
+                    <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                    <select name="role" id="role" 
+                            class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
+                            required>
+                        <option value="">-- Pilih Role --</option>
+                
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-6">
                     <label for="username" class="block mb-2 text-sm font-medium text-gray-900 ">Username</label>
                     <input type="username" id="username" name="username"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"

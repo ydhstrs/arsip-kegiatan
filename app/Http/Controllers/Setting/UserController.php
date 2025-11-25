@@ -40,7 +40,8 @@ class UserController extends Controller
     {
         return view('backend.setting.user.create', [
             // 'charges' => ChargeType::all(),
-            'title' => 'Tambah Kamar',
+            'title' => 'Tambah Pengguna',
+            'roles' => Role::all(), 
         ]);
     }
     public function store(Request $request)

@@ -31,6 +31,14 @@
                 {{ $report->desc }}
             </div>
         </div>
+        @if ($report->remark_kasi)
+        <div class="mb-4">
+            <label class="font-semibold">Keterangan Revisi Kasi</label>
+            <div class="border p-2 rounded bg-gray-50 whitespace-pre-line">
+                {{ $report->remark_kasi }}
+            </div>
+        </div>
+        @endif
 
         {{-- FOTO 1 --}}
         <div class="mb-4">
