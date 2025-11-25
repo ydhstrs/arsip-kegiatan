@@ -35,10 +35,10 @@
                     placeholder="" disabled>{{ $item->desc }} </textarea>
             </div>
             <div class="mb-6">
-                <label for="floor" class="block mb-2 text-sm font-medium text-gray-900 ">Keterangan</label>
-                <textarea type="text" id="remark" name="remark"
+                <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">Keterangan</label>
+                <textarea type="text" id="desc" name="desc"
                     class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                    placeholder="" disabled>{{ $item->remark }} </textarea>
+                    placeholder="" disabled>{{ $item->desc }} </textarea>
             </div>
             <div class="mb-6">
                 <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Lampiran file</label>
@@ -55,8 +55,6 @@
                         <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3">
                     @endif
                 @endif
-
-
 
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">PDF, PNG, JPG (MAX. 2MB).</p>
 

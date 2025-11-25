@@ -46,8 +46,10 @@
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
                         <textarea disabled
-                            class="form-control bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5">{{ $item->remark }}</textarea>
+                            class="form-control bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5">{{ $item->desc }}</textarea>
                     </div>
+                    @if ($item->kasi_user_id)
+
                     <div class="mb-6">
                         <label for="kasi_user_id" class="block mb-2 text-sm font-medium text-gray-900">Kepala Seksi</label>
                         <input type="text" value="{{ $item->kasi->name }}" disabled
@@ -59,15 +61,36 @@
                         <textarea id="remark_kabid" name="remark_kabid"
                             class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5" disabled>{{ $item->remark_kabid }}</textarea>
                     </div>
+                    @endif
 
             
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">File</label>
             
-                        @if ($item->file)
-                            <img src="{{ Storage::url($item->file) }}"
-                                class="rounded max-h-96 mb-3 border shadow">
-                        @endif
+                        <div class="mb-6">
+                            <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Lampiran file</label>
+                            @if ($item->file)
+                                @php
+                                    $ext = strtolower(pathinfo($item->file, PATHINFO_EXTENSION));
+                                @endphp
+            
+                                @if ($ext === 'pdf')
+                                    <a href="{{ Storage::url($item->file) }}" target="_blank" class="btn btn-secondary mb-3">
+                                        Lihat PDF
+                                    </a>
+                                @else
+                                    <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3">
+                                @endif
+                            @endif
+            
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">PDF, PNG, JPG (MAX. 2MB).</p>
+            
+                            @error('file')
+                                <div class="text-red-600">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
 

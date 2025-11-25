@@ -55,6 +55,7 @@
                         <textarea id="remark_kabid" name="remark_kabid"
                             class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5" disabled>{{ $item->remark_kabid }}</textarea>
                     </div>
+                    @if ($item->staff_user_id)
                     <div class="mb-6">
                         <label for="staff_user_id" class="block mb-2 text-sm font-medium text-gray-900">Staff</label>
                         <input type="text" value="{{ $item->staff->name }}" disabled
@@ -67,12 +68,23 @@
                         <textarea id="remark_kasi" name="remark_kasi"
                             class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5" disabled>{{ $item->remark_kasi }}</textarea>
                     </div>
+                    @endif
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">File</label>
 
                         @if ($item->file)
-                            <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3 border shadow">
+                        @php
+                            $ext = strtolower(pathinfo($item->file, PATHINFO_EXTENSION));
+                        @endphp
+    
+                        @if ($ext === 'pdf')
+                            <a href="{{ Storage::url($item->file) }}" target="_blank" class="btn btn-secondary mb-3">
+                                Lihat PDF
+                            </a>
+                        @else
+                            <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3">
                         @endif
+                    @endif
                     </div>
                 </div>
 
