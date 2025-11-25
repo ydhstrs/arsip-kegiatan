@@ -71,31 +71,17 @@ class StaffLetterController extends Controller
     
     public function edit(Letter $letter)
     {   
-        $staffs = User::role('Staff')->get();
-        // $kasi = User::select(['id', 'no', 'status','source', 'desc', 'created_at'])->where()->get();
-        return view('backend.kasi.letter.edit', [
-            'item' => $letter,
-            'staffs' => $staffs,
-            'title' => 'Teruskan Surat',
-        ]);
+
     }
 
     public function update(Request $request, Letter $letter)
     {
-        $validatedData = $request->validate([
-            'staff_user_id' => 'required|max:11',
-            'remark_kasi' => '',
-        ]);
-        $validatedData['status'] = 'Proses Staff';
 
-        $letter->update($validatedData);
-    
-        return redirect('/dashboard/kasi/letter')->with('success', 'Surat Berhasil Diupdate');
     }
     
     public function show(Letter $letter)
     {
-        return view('backend.kasi.letter.detail', [
+        return view('backend.staff.letter.detail', [
             'item' => $letter,
             'title' => 'Detail Surat',
         ]);
