@@ -50,10 +50,10 @@
                     </div>
 
                     <div class="mb-6">
-                        <label for="remark_kabid" class="block mb-2 text-sm font-medium text-gray-900">Keterangan
-                            Kabid</label>
-                        <textarea id="remark_kabid" name="remark_kabid"
-                            class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5" disabled>{{ $item->remark_kabid }}</textarea>
+                        <label for="remark_kasi" class="block mb-2 text-sm font-medium text-gray-900">Keterangan
+                            Kasi</label>
+                        <textarea id="remark_kasi" name="remark_kasi"
+                            class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5" disabled>{{ $item->remark_kasi }}</textarea>
                     </div>
                     @if ($item->staff_user_id)
                     <div class="mb-6">
@@ -62,12 +62,6 @@
                             class="form-control bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5">
                     </div>
 
-                    <div class="mb-6">
-                        <label for="remark_kasi" class="block mb-2 text-sm font-medium text-gray-900">Keterangan
-                            Kasi</label>
-                        <textarea id="remark_kasi" name="remark_kasi"
-                            class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5" disabled>{{ $item->remark_kasi }}</textarea>
-                    </div>
                     @endif
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">File</label>
@@ -86,6 +80,10 @@
                         @endif
                     @endif
                     </div>
+                @if($item->status === 'Proses Staff')
+                    <a href="{{route('staff.report.create', $item->id)}}" 
+                        class="btn btn-sm btn-primary">Buat Laporan</a>
+                @endif
                 </div>
 
             </form>
