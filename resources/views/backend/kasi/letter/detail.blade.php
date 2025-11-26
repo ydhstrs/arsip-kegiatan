@@ -86,7 +86,10 @@
                     @endif
                     </div>
                 </div>
-
+                @if($item->status === 'Proses Kasi')
+                    <a href="{{route('kasi.letter.edit', $item->id)}}" 
+                    class="btn btn btn-success">Teruskan</a>
+                @endif
             </form>
 
         </div>

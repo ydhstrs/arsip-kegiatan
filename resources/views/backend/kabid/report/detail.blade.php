@@ -25,7 +25,6 @@
             </div>
         </div>
 
-        {{-- Judul --}}
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900">Judul Laporan</label>
             <div class="p-3 bg-gray-50 border rounded-lg">
@@ -33,7 +32,6 @@
             </div>
         </div>
 
-        {{-- Deskripsi Staff --}}
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan Laporan Staff</label>
             <div class="p-3 bg-gray-50 border rounded-lg">
@@ -85,7 +83,6 @@
             @endif
         </div>
 
-        {{-- VIDEO --}}
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Video</label>
 
@@ -98,12 +95,15 @@
             @endif
         </div>
 
-        {{-- Button Back --}}
-        <a href="{{ url()->previous() }}"
-           class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
-            Kembali
-        </a>
-
+        @if($item->status === 'Proses Kabid')
+        <a href="{{route('kabid.report.edit', $item->id)}}" 
+        class="btn btn btn-success">Revisi</a>
+        <form action="{{route('kabid.report.approve', $item->id) }}" method="POST" style="display:inline;">
+            @csrf  
+            <button type="submit" class="btn btn-sm btn-primary"
+                onclick="return confirm(\'Yakin setujui laporan ini?\')">Disetujui</button>
+        </form>
+        @endif
     </div>
 </div>
 @endsection

@@ -23,11 +23,7 @@
                 {{-- ===============================
                     SECTION 1 : EDITABLE (Atas)
                 ================================ --}}
-            
 
-                {{-- ===============================
-                    SECTION 2 : READ ONLY (Bawah)
-                ================================ --}}
                 <div class="bg-gray-50 border border-gray-200 shadow-sm rounded-xl p-6 mb-8">
                     <h3 class="text-lg font-semibold mb-4 text-gray-700">Detail Surat </h3>
             
@@ -93,7 +89,10 @@
                         </div>
                     </div>
                 </div>
-
+                @if($item->status === 'Proses Kabid')
+                    <a href="{{route('kabid.letter.edit', $item->id)}}" 
+                    class="btn btn btn-success">Teruskan</a>
+                @endif
             </form>
             
         </div>
