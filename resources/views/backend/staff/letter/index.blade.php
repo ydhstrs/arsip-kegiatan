@@ -58,15 +58,9 @@
                         name: 'source'
                     },
                     {
-    data: 'status',
-    name: 'status',
-    render: function(data, type, row) {
-        if (data && data.toLowerCase().includes('revisi')) {
-            return `<span class="badge bg-danger">${data}</span>`;
-        }
-        return data; // default tanpa warna
-    }
-},
+                        data: 'status',
+                        name: 'status'
+                    },
                     {
                         data: 'desc',
                         name: 'desc',
