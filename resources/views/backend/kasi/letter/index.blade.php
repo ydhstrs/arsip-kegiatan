@@ -58,9 +58,15 @@
                         name: 'source'
                     },
                     {
-                        data: 'status',
-                        name: 'status'
-                    },
+    data: 'status',
+    name: 'status',
+    render: function(data, type, row) {
+        if (data && data.toLowerCase().includes('disetujui')) {
+            return `<span class="badge bg-success">${data}</span>`;
+        }
+        return data; // default tanpa warna
+    }
+},
                     {
                         data: 'desc',
                         name: 'desc',
