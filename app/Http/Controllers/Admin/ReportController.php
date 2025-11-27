@@ -87,11 +87,11 @@ class ReportController extends Controller
             'title' => 'Detail Laporan',
         ]);
     }
-    public function print(Report $report)
+    public function print(Request $request, $id)
     {
         return view('backend.admin.report.print', [
             'item' => $report,
-            'title' => 'Detail Laporan',
+            'title' => 'Print Laporan',
         ]);
     }
 }

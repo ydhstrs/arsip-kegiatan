@@ -113,8 +113,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('report/data', [ReportController::class, 'getData'])
                 ->name('report.data');
             Route::resource('report', ReportController::class);
-                Route::post('/admin/report/{id}/print', [ReportController::class, 'print'])
-                ->name('admin.report.print');  
+            Route::get('/admin/report/{id}/print', [ReportController::class, 'print'])->name('report.print');  
         });
 
     });
