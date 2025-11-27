@@ -35,7 +35,7 @@
 
             @if ($report->file1)
                 <img id="imgPreview1" class="w-56 mb-2 rounded"
-                    src="{{ asset($item->file1) }}">
+                    src="{{ asset($report->file1) }}">
             @else
                 <img id="imgPreview1" class="w-56 mb-2 rounded hidden">
             @endif
@@ -50,7 +50,7 @@
 
             @if ($report->file2)
                 <img id="imgPreview2" class="w-56 mb-2 rounded"
-                    src="{{ asset($item->file2) }}">
+                    src="{{ asset($report->file2) }}">
             @else
                 <img id="imgPreview2" class="w-56 mb-2 rounded hidden">
             @endif
