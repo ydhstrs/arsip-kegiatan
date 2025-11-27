@@ -56,7 +56,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
-            'email_verified_at' => now(),
+            'email_verified_at' => '2025-11-27 10:46:03',
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
