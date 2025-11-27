@@ -128,10 +128,10 @@
 
         @if($item->status === 'Proses Kabid')
         <a href="{{route('kabid.report.edit', $item->id)}}" 
-        class="btn btn btn-success">Revisi</a>
+        class="btn btn btn-danger">Revisi</a>
         <form action="{{route('kabid.report.approve', $item->id) }}" method="POST" style="display:inline;">
             @csrf  
-            <button type="submit" class="btn btn-sm btn-primary"
+            <button type="submit" class="btn btn btn-primary"
                 onclick="return confirm(\'Yakin setujui laporan ini?\')">Disetujui</button>
         </form>
         @endif

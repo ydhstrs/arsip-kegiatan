@@ -6,7 +6,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="bg-white block w-full overflow-x-auto p-8 shadow-md rounded-xl">
-        <a href="/dashboard/kasat/report" class="btn btn-primary mb-4">Kembali</a>
+        <a href="/dashboard/admin/report" class="btn btn-primary mb-4">Kembali</a>
 
         <h3 class="text-xl font-semibold mb-6">{{ $title }}</h3>
 
@@ -25,6 +25,7 @@
             </div>
         </div>
 
+        {{-- Judul --}}
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900">Judul Laporan</label>
             <div class="p-3 bg-gray-50 border rounded-lg">
@@ -83,6 +84,26 @@
                 <p class="text-gray-500 italic">Tidak ada foto</p>
             @endif
         </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 3</label>
+
+            @if ($item->file3)
+                <img src="{{ asset($item->file3) }}"
+                     class="rounded max-h-96 mb-3 shadow">
+            @else
+                <p class="text-gray-500 italic">Tidak ada foto</p>
+            @endif
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 4</label>
+
+            @if ($item->file4)
+                <img src="{{ asset($item->file4) }}"
+                     class="rounded max-h-96 mb-3 shadow">
+            @else
+                <p class="text-gray-500 italic">Tidak ada foto</p>
+            @endif
+        </div>
 
         {{-- VIDEO --}}
         <div class="mb-6">
@@ -96,7 +117,17 @@
                 <p class="text-gray-500 italic">Tidak ada video</p>
             @endif
         </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Video 2</label>
 
+            @if ($item->video2)
+                <video controls class="rounded max-h-96 shadow mb-3">
+                    <source src="{{ asset($item->video2) }}" type="video/mp4">
+                </video>
+            @else
+                <p class="text-gray-500 italic">Tidak ada video</p>
+            @endif
+        </div>
 
 
     </div>

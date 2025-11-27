@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function getData(Request $request)
     {
-        $users = User::select(['id', 'name', 'username', 'email', 'created_at'])->get();
+        $users = User::select(['id', 'name', 'username', 'email', 'created_at'])->where('username', '<>', 'superadmin')->get();
 
         return DataTables::of($users)
             ->addColumn('action', function ($item) {
