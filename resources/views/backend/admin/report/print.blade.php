@@ -1,74 +1,40 @@
+<!-- resources/views/reports/preview.blade.php -->
+
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
     <title>LAPORAN KEGIATAN</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .kwitansi {
-            text-align: center;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        .detail {
-            margin-top: 40px;
-        }
-        .detail table {
-            width: 100%;
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        .detail th, .detail td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid black;
-        }
-        .signature {
-            margin-top: 40px;
-            text-align: center;
-        }
+        body { font-family: DejaVu Sans, sans-serif; }
+        h1 { text-align: center; }
+        h3 { text-align: center; color: gray; }
+        p { margin: 15px 0; }
+        .images { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .images img { max-width: 48%; height: auto; border: 1px solid #ccc; padding: 5px; }
     </style>
 </head>
 <body>
 
-<div class="kwitansi">
-    <h2>Kwitansi Pembayaran Avour</h2>
-    <p>No. Kwitansi: {{ $item->title }}</p>
-    <p>Tanggal: {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</p>
-</div>
+    <h1>{{ $item->title }}</h1>
+    <h3>oleh {{ $item->staff->name ?? 'Tidak Diketahui' }}</h3>
 
-<div class="detail">
-    <table>
-        <tr>
-            <th>Nama Penerima</th>
-            <td>AVour</td>
-        </tr>
-        <tr>
-            <th>Nama Pemberi</th>
-            <td>{{ $item->guest_name }}</td>
-        </tr>
-        <tr>
-            <th>Uraian</th>
-            <td>{{ $item->remark }}</td>
-        </tr>
-        <tr>
-            <th>Jumlah</th>
-            <td>Rp {{ number_format($item->amount, 0, ',', '.') }}</td>
-        </tr>
-    </table>
-</div>
+    <p>{{ $item->desc ?? '-' }}</p>
 
-<div class="signature">
-    <p>Mengetahui,</p>
-    <p>PIHAK PERTAMA</p>
-    <p>({{ $item->kasi->name }})</p>
-    <p>PIHAK KEDUA</p>
-    <p>({{ $item->guest_name }})</p>
-</div>
+    <div class="images">
+        @if($item->file1)
+            <img src="{{ public_path( $item->file1) }}" alt="Foto 1">
+        @endif
+        @if($item->file2)
+            <img src="{{ public_path( $item->file2) }}" alt="Foto 2">
+        @endif
+        @if($item->file3)
+            <img src="{{ public_path( $item->file3) }}" alt="Foto 3">
+        @endif
+        @if($item->file4)
+            <img src="{{ public_path( $item->file4) }}" alt="Foto 4">
+        @endif
+    </div>
 
 </body>
 </html>
