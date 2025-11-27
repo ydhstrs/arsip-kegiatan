@@ -25,7 +25,6 @@
             </div>
         </div>
 
-        {{-- Judul --}}
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900">Judul Laporan</label>
             <div class="p-3 bg-gray-50 border rounded-lg">
