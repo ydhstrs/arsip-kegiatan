@@ -112,9 +112,9 @@
                     <source src="{{ asset('storage/' . $report->video) }}">
                 </video>
                 <br>
-                <a href="{{ asset('storage/' . $report->video) }}" target="_blank" class="btn btn-sm btn-info">
+                {{-- <a href="{{ asset('storage/' . $report->video) }}" target="_blank" class="btn btn-sm btn-info">
                     Buka Video
-                </a>
+                </a> --}}
             @else
                 <p class="text-gray-500">Tidak ada video.</p>
             @endif
@@ -126,9 +126,9 @@
                     <source src="{{ asset('storage/' . $report->video2) }}">
                 </video>
                 <br>
-                <a href="{{ asset('storage/' . $report->video2) }}" target="_blank" class="btn btn-sm btn-info">
+                {{-- <a href="{{ asset('storage/' . $report->video2) }}" target="_blank" class="btn btn-sm btn-info">
                     Buka Video
-                </a>
+                </a> --}}
             @else
                 <p class="text-gray-500">Tidak ada video.</p>
             @endif
