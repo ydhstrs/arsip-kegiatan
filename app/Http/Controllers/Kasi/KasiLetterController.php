@@ -64,7 +64,8 @@ class KasiLetterController extends Controller
     
     public function edit(Letter $letter)
     {   
-        $staffs = User::role('Staff')->get();
+        $userId = Auth::id();
+        $staffs = User::role('Staff')->where('lead_user_id', $userId)->get();
         // $kasi = User::select(['id', 'no', 'status','source', 'desc', 'created_at'])->where()->get();
         return view('backend.kasi.letter.edit', [
             'item' => $letter,
