@@ -342,6 +342,71 @@ class StaffReportController extends Controller
             $report->file2 = $file2Path;
 
         }
+        if ($request->hasFile('file4')) {
+            // if ($request->old_file2) {
+            //     Storage::disk('public')->delete($request->old_file2);
+            // }
+            if ($request->old_file4) {
+                Storage::delete('public/'.$request->old_file4);
+            }
+
+            $file = $request->file('file4');
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
+            $path = storage_path('app/public/report_images/'.$filename);
+
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
+
+                $image = Image::make($file->getRealPath());
+
+                $image->resize(2000, null, function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+
+                $image->save($path, 80);
+            } else {
+                $file->storeAs('public/report_images', $filename);
+            }
+
+            $file4Path = 'report_images/'.$filename;
+            $report->file4 = $file4Path;
+
+        }
+        
+        if ($request->hasFile('file3')) {
+            // if ($request->old_file2) {
+            //     Storage::disk('public')->delete($request->old_file2);
+            // }
+            if ($request->old_file3) {
+                Storage::delete('public/'.$request->old_file3);
+            }
+
+            $file = $request->file('file3');
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
+            $path = storage_path('app/public/report_images/'.$filename);
+
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
+
+                $image = Image::make($file->getRealPath());
+
+                $image->resize(2000, null, function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+
+                $image->save($path, 80);
+            } else {
+                $file->storeAs('public/report_images', $filename);
+            }
+
+            $file3Path = 'report_images/'.$filename;
+            $report->file3 = $file3Path;
+
+        }
 
         // VIDEO
         if ($request->hasFile('video')) {
@@ -349,6 +414,12 @@ class StaffReportController extends Controller
                 Storage::delete($report->video);
             }
             $report->video = $request->file('video')->store('videos');
+        }
+        if ($request->hasFile('video2')) {
+            if ($report->video2) {
+                Storage::delete($report->video2);
+            }
+            $report->video2 = $request->file('video2')->store('videos');
         }
         $report->status = 'Proses Kasi';
         $report->save();
