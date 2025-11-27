@@ -62,38 +62,48 @@ class LetterController extends Controller
     
         // Upload & compress file
         if ($request->hasFile('file')) {
+
             $file = $request->file('file');
             $ext = strtolower($file->getClientOriginalExtension());
-    
-            // Tentukan nama file
-            $filename = uniqid() . '.' . ($ext === 'heic' ? 'jpg' : $ext);
-    
-            // Path simpan
-            $path = storage_path('app/public/letters/' . $filename);
-
-    
-            // === COMPRESS ALGORITMA ===
-            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-    
-                // Baca gambar
-                $image = Image::make($file->getRealPath());
-    
-                // Resize HALUS jika terlalu besar (maks 2000px)
-                $image->resize(2000, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
-    
-                // Simpan dengan kualitas 80 (aman, tidak blur)
-                $image->save($path, 80); 
-            } else {
-                // File pdf or non-image → simpan langsung
-                $file->storeAs('public/letters', $filename);
-
+        
+            // convert HEIC → JPG
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+        
+            // nama file unik
+            $filename = uniqid() . '.' . $saveExt;
+        
+            // lokasi simpan (langsung ke public_html)
+            $path = public_path('letters/' . $filename);
+        
+            // pastikan folder ada
+            if (!file_exists(public_path('letters'))) {
+                mkdir(public_path('letters'), 0777, true);
             }
-    
+        
+            // === COMPRESS IMAGE ===
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
+        
+                $image = Image::make($file->getRealPath());
+        
+                // Resize lembut max 2000px
+                $image->resize(2000, null, function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+        
+                // simpan dengan kualitas 80
+                $image->save($path, 80);
+        
+            } else {
+        
+                // file selain image → copy biasa
+                $file->move(public_path('letters'), $filename);
+            }
+        
+            // simpan path ke DB
             $validatedData['file'] = 'letters/' . $filename;
         }
+        
     
         // Default status
         $validatedData['status'] = 'Proses Kabid';
