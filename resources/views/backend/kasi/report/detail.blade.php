@@ -84,6 +84,26 @@
                 <p class="text-gray-500 italic">Tidak ada foto</p>
             @endif
         </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 3</label>
+
+            @if ($item->file3)
+                <img src="{{ Storage::url($item->file3) }}"
+                     class="rounded max-h-96 mb-3 shadow">
+            @else
+                <p class="text-gray-500 italic">Tidak ada foto</p>
+            @endif
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 4</label>
+
+            @if ($item->file4)
+                <img src="{{ Storage::url($item->file4) }}"
+                     class="rounded max-h-96 mb-3 shadow">
+            @else
+                <p class="text-gray-500 italic">Tidak ada foto</p>
+            @endif
+        </div>
 
         {{-- VIDEO --}}
         <div class="mb-6">
@@ -92,6 +112,17 @@
             @if ($item->video)
                 <video controls class="rounded max-h-96 shadow mb-3">
                     <source src="{{ Storage::url($item->video) }}" type="video/mp4">
+                </video>
+            @else
+                <p class="text-gray-500 italic">Tidak ada video</p>
+            @endif
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Video 2</label>
+
+            @if ($item->video2)
+                <video controls class="rounded max-h-96 shadow mb-3">
+                    <source src="{{ Storage::url($item->video2) }}" type="video/mp4">
                 </video>
             @else
                 <p class="text-gray-500 italic">Tidak ada video</p>

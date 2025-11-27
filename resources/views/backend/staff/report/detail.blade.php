@@ -77,6 +77,32 @@
                 <p class="text-gray-500">Tidak ada foto.</p>
             @endif
         </div>
+        <div class="mb-4">
+            <label class="font-semibold">Foto 3</label><br>
+            @if ($report->file3)
+                <img src="{{ asset('storage/' . $report->file3) }}" 
+                     class="w-56 rounded shadow mb-2">
+                <br>
+                <a href="{{ asset('storage/' . $report->file3) }}" target="_blank" class="btn btn-sm btn-info">
+                    Lihat Full
+                </a>
+            @else
+                <p class="text-gray-500">Tidak ada foto.</p>
+            @endif
+        </div>
+        <div class="mb-4">
+            <label class="font-semibold">Foto 4</label><br>
+            @if ($report->file4)
+                <img src="{{ asset('storage/' . $report->file4) }}" 
+                     class="w-56 rounded shadow mb-2">
+                <br>
+                <a href="{{ asset('storage/' . $report->file4) }}" target="_blank" class="btn btn-sm btn-info">
+                    Lihat Full
+                </a>
+            @else
+                <p class="text-gray-500">Tidak ada foto.</p>
+            @endif
+        </div>
 
         {{-- VIDEO --}}
         <div class="mb-4">
@@ -93,6 +119,21 @@
                 <p class="text-gray-500">Tidak ada video.</p>
             @endif
         </div>
+        <div class="mb-4">
+            <label class="font-semibold">Video 2</label><br>
+            @if ($report->video)
+                <video class="w-72 rounded shadow mb-2" controls>
+                    <source src="{{ asset('storage/' . $report->video2) }}">
+                </video>
+                <br>
+                <a href="{{ asset('storage/' . $report->video2) }}" target="_blank" class="btn btn-sm btn-info">
+                    Buka Video
+                </a>
+            @else
+                <p class="text-gray-500">Tidak ada video.</p>
+            @endif
+        </div>
+
 
     </div>
 

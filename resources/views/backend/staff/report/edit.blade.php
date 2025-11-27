@@ -58,6 +58,32 @@
             <input type="file" id="file2" name="file2" onchange="previewImage2()"
                 class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
         </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Upload Foto 3</label>
+
+            @if ($report->file3)
+                <img id="imgPreview3" class="w-56 mb-2 rounded"
+                    src="{{ Storage::url($report->file3) }}">
+            @else
+                <img id="imgPreview3" class="w-56 mb-2 rounded hidden">
+            @endif
+            <input type="hidden" name="old_file3" value="{{ $report->file3 }}">
+            <input type="file" id="file3" name="file3" onchange="previewImage3()"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Upload Foto 4</label>
+
+            @if ($report->file4)
+                <img id="imgPreview4" class="w-56 mb-2 rounded"
+                    src="{{ Storage::url($report->file4) }}">
+            @else
+                <img id="imgPreview4" class="w-56 mb-2 rounded hidden">
+            @endif
+            <input type="hidden" name="old_file4" value="{{ $report->file4 }}">
+            <input type="file" id="file4" name="file4" onchange="previewImage4()"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
+        </div>
 
         {{-- VIDEO --}}
         <div class="mb-6">
@@ -72,6 +98,20 @@
             @endif
             <input type="hidden" name="old_video" value="{{ $report->video }}">
             <input type="file" id="video" name="video" accept="video/*" onchange="previewVideo()"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Upload Video 2</label>
+
+            @if ($report->video)
+                <video id="vidPreview2" class="w-56 mb-2 rounded" controls>
+                    <source src="{{ Storage::url($report->video2) }}" type="video/mp4">
+                </video>
+            @else
+                <video id="vidPreview2" class="w-56 mb-2 rounded hidden" controls></video>
+            @endif
+            <input type="hidden" name="old_video2" value="{{ $report->video2 }}">
+            <input type="file" id="video2" name="video2" accept="video/*" onchange="previewVideo2()"
                 class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer">
         </div>
 
@@ -107,10 +147,32 @@
         img.src = URL.createObjectURL(file);
         img.classList.remove("hidden");
     }
+    function previewImage3() {
+        const file = file1.files[0];
+        const img = document.getElementById("imgPreview3");
+        if (!file) return;
+        img.src = URL.createObjectURL(file);
+        img.classList.remove("hidden");
+    }
+
+    function previewImage4() {
+        const file = file2.files[0];
+        const img = document.getElementById("imgPreview4");
+        if (!file) return;
+        img.src = URL.createObjectURL(file);
+        img.classList.remove("hidden");
+    }
 
     function previewVideo() {
         const file = video.files[0];
         const vid = document.getElementById("vidPreview");
+        if (!file) return;
+        vid.src = URL.createObjectURL(file);
+        vid.classList.remove("hidden");
+    }
+    function previewVideo2() {
+        const file = video.files[0];
+        const vid = document.getElementById("vidPreview2");
         if (!file) return;
         vid.src = URL.createObjectURL(file);
         vid.classList.remove("hidden");
