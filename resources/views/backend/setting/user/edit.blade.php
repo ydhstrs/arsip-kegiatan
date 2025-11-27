@@ -50,7 +50,7 @@
                         <option value="">-- Atasan Langsung--</option>
 
                         @foreach ($users as $user)
-                            <option value="{{ $role->user }}"
+                            <option value="{{ $user->id }}"
                                 {{ $item->lead_user_id == $user->id ? 'selected' : '' }}>
                                 {{ $user->name }}
                             </option>
