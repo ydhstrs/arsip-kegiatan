@@ -121,7 +121,7 @@
         </div>
         <div class="mb-4">
             <label class="font-semibold">Video 2</label><br>
-            @if ($report->video)
+            @if ($report->video2)
                 <video class="w-72 rounded shadow mb-2" controls>
                     <source src="{{ asset('storage/' . $report->video2) }}">
                 </video>
