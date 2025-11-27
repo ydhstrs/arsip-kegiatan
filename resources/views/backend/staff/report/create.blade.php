@@ -65,7 +65,7 @@
                 </div>
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900" for="file">Upload Foto 3</label>
-                    <img class="img-preview w-56 mb-2" id="previewImage3">
+                    <img class="img-preview w-56 mb-2" id="imgPreview3">
                     <input
                         class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:placeholder-gray-400 @error('file') border-red-600 @enderror"
                         aria-describedby="file_input_help" id="file3" name="file3" type="file"
@@ -79,7 +79,7 @@
                 </div>
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900" for="file">Upload Foto 4</label>
-                    <img class="img-preview w-56 mb-2" id="previewImage4">
+                    <img class="img-preview w-56 mb-2" id="imgPreview4">
                     <input
                         class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:placeholder-gray-400 @error('file') border-red-600 @enderror"
                         aria-describedby="file_input_help" id="file4" name="file4" type="file"
@@ -267,7 +267,7 @@
         }
         function previewVideo2() {
             const fileInput = document.getElementById('video2');
-            const preview = document.getElementById('vidPreview');
+            const preview = document.getElementById('vidPreview2');
             const file = fileInput.files[0];
 
             if (!file) return;

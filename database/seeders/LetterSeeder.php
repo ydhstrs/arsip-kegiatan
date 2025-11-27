@@ -24,7 +24,7 @@ class LetterSeeder extends Seeder
             'remark_kabid'  => '12121212',
             'kabid_user_id' => 0,
             'kasi_user_id'  => 5,
-            'staff_user_id' => 6,
+            'staff_user_id' => 7,
             'created_at'    => '2025-11-23 16:57:23',
             'updated_at'    => '2025-11-23 17:58:26',
         ]);
