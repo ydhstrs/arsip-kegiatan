@@ -42,6 +42,7 @@
                         @endforeach
                     </select>
                 </div>
+                
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Jabatan</label>
                     <select name="lead_user_id"
