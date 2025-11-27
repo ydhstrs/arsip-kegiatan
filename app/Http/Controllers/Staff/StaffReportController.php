@@ -579,6 +579,7 @@ class StaffReportController extends Controller
         $report->update([
             'title' => $request->title,
             'desc' => $request->desc,
+            'status' => 'Proses Kasi',
             'file1' => $file1Path,
             'file2' => $file2Path,
             'file3' => $file3Path,
