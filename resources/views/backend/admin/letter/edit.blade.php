@@ -46,11 +46,11 @@
                         @endphp
 
                         @if ($ext === 'pdf')
-                            <a href="{{ Storage::url($item->file) }}" target="_blank" class="btn btn-secondary mb-3">
+                            <a href="{{ asset($item->file) }}" target="_blank" class="btn btn-secondary mb-3">
                                 Lihat PDF
                             </a>
                         @else
-                            <img src="{{ Storage::url($item->file) }}" alt="Preview" id="imgPreview"
+                            <img src="{{ asset($item->file) }}" alt="Preview" id="imgPreview"
                                 class="rounded max-h-96 mb-3">
                         @endif
                         <input type="hidden" name="old_file" value="{{ $item->file }}" >

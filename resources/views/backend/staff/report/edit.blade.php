@@ -35,7 +35,7 @@
 
             @if ($report->file1)
                 <img id="imgPreview1" class="w-56 mb-2 rounded"
-                    src="{{ Storage::url($report->file1) }}">
+                    src="{{ asset($item->file1) }}">
             @else
                 <img id="imgPreview1" class="w-56 mb-2 rounded hidden">
             @endif
@@ -50,7 +50,7 @@
 
             @if ($report->file2)
                 <img id="imgPreview2" class="w-56 mb-2 rounded"
-                    src="{{ Storage::url($report->file2) }}">
+                    src="{{ asset($item->file2) }}">
             @else
                 <img id="imgPreview2" class="w-56 mb-2 rounded hidden">
             @endif
@@ -63,7 +63,7 @@
 
             @if ($report->file3)
                 <img id="imgPreview3" class="w-56 mb-2 rounded"
-                    src="{{ Storage::url($report->file3) }}">
+                    src="{{ asset($item->file3) }}">
             @else
                 <img id="imgPreview3" class="w-56 mb-2 rounded hidden">
             @endif
@@ -76,7 +76,7 @@
 
             @if ($report->file4)
                 <img id="imgPreview4" class="w-56 mb-2 rounded"
-                    src="{{ Storage::url($report->file4) }}">
+                    src="{{ asset($item->file4) }}">
             @else
                 <img id="imgPreview4" class="w-56 mb-2 rounded hidden">
             @endif

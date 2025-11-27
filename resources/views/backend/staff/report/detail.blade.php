@@ -52,10 +52,10 @@
         <div class="mb-4">
             <label class="font-semibold">Foto 1</label><br>
             @if ($report->file1)
-                <img src="{{ asset('storage/' . $report->file1) }}" 
+                <img src="{{ asset( $report->file1) }}" 
                      class="w-56 rounded shadow mb-2">
                 <br>
-                <a href="{{ asset('storage/' . $report->file1) }}" target="_blank" class="btn btn-sm btn-info">
+                <a href="{{ asset( $report->file1) }}" target="_blank" class="btn btn-sm btn-info">
                     Lihat Full
                 </a>
             @else
@@ -67,10 +67,10 @@
         <div class="mb-4">
             <label class="font-semibold">Foto 2</label><br>
             @if ($report->file2)
-                <img src="{{ asset('storage/' . $report->file2) }}" 
+                <img src="{{ asset( $report->file2) }}" 
                      class="w-56 rounded shadow mb-2">
                 <br>
-                <a href="{{ asset('storage/' . $report->file2) }}" target="_blank" class="btn btn-sm btn-info">
+                <a href="{{ asset( $report->file2) }}" target="_blank" class="btn btn-sm btn-info">
                     Lihat Full
                 </a>
             @else
@@ -80,10 +80,10 @@
         <div class="mb-4">
             <label class="font-semibold">Foto 3</label><br>
             @if ($report->file3)
-                <img src="{{ asset('storage/' . $report->file3) }}" 
+                <img src="{{ asset( $report->file3) }}" 
                      class="w-56 rounded shadow mb-2">
                 <br>
-                <a href="{{ asset('storage/' . $report->file3) }}" target="_blank" class="btn btn-sm btn-info">
+                <a href="{{ asset( $report->file3) }}" target="_blank" class="btn btn-sm btn-info">
                     Lihat Full
                 </a>
             @else
@@ -93,10 +93,10 @@
         <div class="mb-4">
             <label class="font-semibold">Foto 4</label><br>
             @if ($report->file4)
-                <img src="{{ asset('storage/' . $report->file4) }}" 
+                <img src="{{ asset( $report->file4) }}" 
                      class="w-56 rounded shadow mb-2">
                 <br>
-                <a href="{{ asset('storage/' . $report->file4) }}" target="_blank" class="btn btn-sm btn-info">
+                <a href="{{ asset( $report->file4) }}" target="_blank" class="btn btn-sm btn-info">
                     Lihat Full
                 </a>
             @else
@@ -109,10 +109,10 @@
             <label class="font-semibold">Video</label><br>
             @if ($report->video)
                 <video class="w-72 rounded shadow mb-2" controls>
-                    <source src="{{ asset('storage/' . $report->video) }}">
+                    <source src="{{ asset( $report->video) }}">
                 </video>
                 <br>
-                {{-- <a href="{{ asset('storage/' . $report->video) }}" target="_blank" class="btn btn-sm btn-info">
+                {{-- <a href="{{ asset( $report->video) }}" target="_blank" class="btn btn-sm btn-info">
                     Buka Video
                 </a> --}}
             @else
@@ -123,10 +123,10 @@
             <label class="font-semibold">Video 2</label><br>
             @if ($report->video2)
                 <video class="w-72 rounded shadow mb-2" controls>
-                    <source src="{{ asset('storage/' . $report->video2) }}">
+                    <source src="{{ asset( $report->video2) }}">
                 </video>
                 <br>
-                {{-- <a href="{{ asset('storage/' . $report->video2) }}" target="_blank" class="btn btn-sm btn-info">
+                {{-- <a href="{{ asset( $report->video2) }}" target="_blank" class="btn btn-sm btn-info">
                     Buka Video
                 </a> --}}
             @else

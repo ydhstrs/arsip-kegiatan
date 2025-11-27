@@ -53,7 +53,7 @@
                     <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Lampiran Foto 1</label>
                 
                     @if ($item->file1)
-                        <img src="{{ Storage::url($item->file1) }}" 
+                        <img src="{{ asset($item->file1) }}" 
                              alt="Preview" 
                              id="imgPreview" 
                              class="rounded max-h-96 mb-3">
@@ -67,7 +67,7 @@
                     <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Lampiran Foto 2</label>
                 
                     @if ($item->file2)
-                        <img src="{{ Storage::url($item->file2) }}" 
+                        <img src="{{ asset($item->file2) }}" 
                              alt="Preview" 
                              id="imgPreview" 
                              class="rounded max-h-96 mb-3">
@@ -83,7 +83,7 @@
                         <video controls 
                                id="vidPreview" 
                                class="rounded max-h-96 mb-3">
-                            <source src="{{ Storage::url($item->video) }}" type="video/mp4">
+                            <source src="{{ asset($item->video) }}" type="video/mp4">
                             Browser Anda tidak mendukung video.
                         </video>
                     @else

@@ -64,7 +64,7 @@
             <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 1</label>
 
             @if ($item->file1)
-                <img src="{{ Storage::url($item->file1) }}"
+                <img src="{{ asset($item->file1) }}"
                      class="rounded max-h-96 mb-3 shadow">
             @else
                 <p class="text-gray-500 italic">Tidak ada foto</p>
@@ -76,7 +76,7 @@
             <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 2</label>
 
             @if ($item->file2)
-                <img src="{{ Storage::url($item->file2) }}"
+                <img src="{{ asset($item->file2) }}"
                      class="rounded max-h-96 mb-3 shadow">
             @else
                 <p class="text-gray-500 italic">Tidak ada foto</p>
@@ -86,7 +86,7 @@
             <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 3</label>
 
             @if ($item->file3)
-                <img src="{{ Storage::url($item->file3) }}"
+                <img src="{{ asset($item->file3) }}"
                      class="rounded max-h-96 mb-3 shadow">
             @else
                 <p class="text-gray-500 italic">Tidak ada foto</p>
@@ -96,7 +96,7 @@
             <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 4</label>
 
             @if ($item->file4)
-                <img src="{{ Storage::url($item->file4) }}"
+                <img src="{{ asset($item->file4) }}"
                      class="rounded max-h-96 mb-3 shadow">
             @else
                 <p class="text-gray-500 italic">Tidak ada foto</p>
@@ -108,7 +108,7 @@
 
             @if ($item->video)
                 <video controls class="rounded max-h-96 shadow mb-3">
-                    <source src="{{ Storage::url($item->video) }}" type="video/mp4">
+                    <source src="{{ asset($item->video) }}" type="video/mp4">
                 </video>
             @else
                 <p class="text-gray-500 italic">Tidak ada video</p>
@@ -119,7 +119,7 @@
 
             @if ($item->video2)
                 <video controls class="rounded max-h-96 shadow mb-3">
-                    <source src="{{ Storage::url($item->video2) }}" type="video/mp4">
+                    <source src="{{ asset($item->video2) }}" type="video/mp4">
                 </video>
             @else
                 <p class="text-gray-500 italic">Tidak ada video</p>

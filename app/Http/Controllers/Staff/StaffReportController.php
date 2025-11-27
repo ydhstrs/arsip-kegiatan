@@ -96,37 +96,59 @@ class StaffReportController extends Controller
         $file4Path = null;
         $videoPath = null;
         $video2Path = null;
-
+        $folder = 'reports';
         /* ================================
            COMPRESS FILE 1
         =================================*/
+        
         if ($request->hasFile('file1')) {
 
             $file = $request->file('file1');
             $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
-            // Jika image → compress
+        
+            // convert HEIC → JPG
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+        
+            // nama file unik
+            $filename = uniqid() . '.' . $saveExt;
+        
+            // folder tujuan relatif ke disk
+            $relativePath = $folder . '/' . $filename;
+        
+            // --- CHECK FOLDER DI DISK ---
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+        
+            // === COMPRESS IMAGE ===
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
+        
+                // load image
                 $image = Image::make($file->getRealPath());
-
+        
                 // resize max 2000px
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
-
-                // simpan kualitas 80
-                $image->save($path, 80);
+        
+                // simpan sementara di memory
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+        
+                // upload file hasil compress
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+        
+                // hapus temp file
+                unlink($tempPath);
+        
             } else {
-                // fallback (harusnya ga mungkin)
-                $file->storeAs('public/report_images', $filename);
+                // PDF atau non-image → disimpan langsung
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
-
-            $file1Path = 'report_images/'.$filename;
+        
+            // Simpan path ke database
+            $file1Path = $relativePath;
         }
 
         /* ================================
@@ -136,84 +158,180 @@ class StaffReportController extends Controller
 
             $file = $request->file('file2');
             $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
+        
+            // convert HEIC → JPG
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+        
+            // nama file unik
+            $filename = uniqid() . '.' . $saveExt;
+        
+            // folder tujuan relatif ke disk
+            
+            $relativePath = $folder . '/' . $filename;
+        
+            // --- CHECK FOLDER DI DISK ---
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+        
+            // === COMPRESS IMAGE ===
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
+        
+                // load image
                 $image = Image::make($file->getRealPath());
-
+        
+                // resize max 2000px
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
-
-                $image->save($path, 80);
+        
+                // simpan sementara di memory
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+        
+                // upload file hasil compress
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+        
+                // hapus temp file
+                unlink($tempPath);
+        
             } else {
-                $file->storeAs('public/report_images', $filename);
+                // PDF atau non-image → disimpan langsung
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
-
-            $file2Path = 'report_images/'.$filename;
+        
+            // Simpan path ke database
+            $file2Path = $relativePath;
         }
         if ($request->hasFile('file3')) {
 
             $file = $request->file('file3');
             $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
+        
+            // convert HEIC → JPG
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+        
+            // nama file unik
+            $filename = uniqid() . '.' . $saveExt;
+        
+            // folder tujuan relatif ke disk
+            
+            $relativePath = $folder . '/' . $filename;
+        
+            // --- CHECK FOLDER DI DISK ---
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+        
+            // === COMPRESS IMAGE ===
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
+        
+                // load image
                 $image = Image::make($file->getRealPath());
-
+        
+                // resize max 2000px
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
-
-                $image->save($path, 80);
+        
+                // simpan sementara di memory
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+        
+                // upload file hasil compress
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+        
+                // hapus temp file
+                unlink($tempPath);
+        
             } else {
-                $file->storeAs('public/report_images', $filename);
+                // PDF atau non-image → disimpan langsung
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
-
-            $file3Path = 'report_images/'.$filename;
+        
+            // Simpan path ke database
+            $file3Path = $relativePath;
         }
 
         if ($request->hasFile('file4')) {
 
             $file = $request->file('file4');
             $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
+        
+            // convert HEIC → JPG
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+        
+            // nama file unik
+            $filename = uniqid() . '.' . $saveExt;
+        
+            // folder tujuan relatif ke disk
+            
+            $relativePath = $folder . '/' . $filename;
+        
+            // --- CHECK FOLDER DI DISK ---
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+        
+            // === COMPRESS IMAGE ===
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
+        
+                // load image
                 $image = Image::make($file->getRealPath());
-
+        
+                // resize max 2000px
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
-
-                $image->save($path, 80);
+        
+                // simpan sementara di memory
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+        
+                // upload file hasil compress
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+        
+                // hapus temp file
+                unlink($tempPath);
+        
             } else {
-                $file->storeAs('public/report_images', $filename);
+                // PDF atau non-image → disimpan langsung
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
-
-            $file4Path = 'report_images/'.$filename;
+        
+            // Simpan path ke database
+            $file4Path = $relativePath;
         }
-
         /* ================================
            SAVE VIDEO (TIDAK COMPRESS)
         =================================*/
         if ($request->hasFile('video')) {
-            $videoPath = $request->file('video')->store('report_videos', 'public');
+            $file = $request->file('video');
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+        
+            // --- CHECK FOLDER DI DISK ---
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+            Storage::disk('public')->putFileAs($folder, $file, $filename);
+        
+            $videoPath = $relativePath;
         }
         if ($request->hasFile('video2')) {
-            $video2Path = $request->file('video2')->store('report_videos', 'public');
+            $file = $request->file('video2');
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+        
+            // --- CHECK FOLDER DI DISK ---
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+            Storage::disk('public')->putFileAs($folder, $file, $filename);
+            $video2Path = $relativePath;
         }
 
         /* ================================
@@ -261,179 +379,226 @@ class StaffReportController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Report $report)
     {
-        $report = Report::findOrFail($id);
-
-        // update data text
-        $report->title = $request->title;
-        $report->desc = $request->desc;
-
-        /* ================================
-           COMPRESS FILE 1
-        =================================*/
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'desc' => 'nullable|string',
+    
+            'file1' => 'nullable|file|mimes:jpg,jpeg,png,heic|max:10240',
+            'file2' => 'nullable|file|mimes:jpg,jpeg,png,heic|max:10240',
+            'file3' => 'nullable|file|mimes:jpg,jpeg,png,heic|max:10240',
+            'file4' => 'nullable|file|mimes:jpg,jpeg,png,heic|max:10240',
+            'video' => 'nullable|mimes:mp4,mkv,avi,mov|max:51200',
+            'video2' => 'nullable|mimes:mp4,mkv,avi,mov|max:51200',
+        ]);
+    
+        $folder = 'reports';
+    
+        // ===== FILE 1 =====
+        $file1Path = $report->file1;
         if ($request->hasFile('file1')) {
-            // if ($request->old_file1) {
-            //     Storage::disk('public')->delete($request->old_file1);
-            // }
-            if ($request->old_file1) {
-                Storage::delete('public/'.$request->old_file1);
-            }
             $file = $request->file('file1');
             $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
-            // Jika image → compress
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+    
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+    
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
                 $image = Image::make($file->getRealPath());
-
-                // resize max 2000px
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
-
-                // simpan kualitas 80
-                $image->save($path, 80);
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+                unlink($tempPath);
             } else {
-                // fallback (harusnya ga mungkin)
-                $file->storeAs('public/report_images', $filename);
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
-
-            $file1Path = 'report_images/'.$filename;
-            $report->file1 = $file1Path;
+    
+            if ($report->file1 && Storage::disk('public')->exists($report->file1)) {
+                Storage::disk('public')->delete($report->file1);
+            }
+    
+            $file1Path = $relativePath;
         }
-
-        /* ================================
-           COMPRESS FILE 2
-        =================================*/
+    
+        // ===== FILE 2 =====
+        $file2Path = $report->file2;
         if ($request->hasFile('file2')) {
-            // if ($request->old_file2) {
-            //     Storage::disk('public')->delete($request->old_file2);
-            // }
-            if ($request->old_file2) {
-                Storage::delete('public/'.$request->old_file2);
-            }
-
             $file = $request->file('file2');
             $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+    
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+    
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
                 $image = Image::make($file->getRealPath());
-
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
-
-                $image->save($path, 80);
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+                unlink($tempPath);
             } else {
-                $file->storeAs('public/report_images', $filename);
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
-
-            $file2Path = 'report_images/'.$filename;
-            $report->file2 = $file2Path;
-
+    
+            if ($report->file2 && Storage::disk('public')->exists($report->file2)) {
+                Storage::disk('public')->delete($report->file2);
+            }
+    
+            $file2Path = $relativePath;
         }
-        if ($request->hasFile('file4')) {
-            // if ($request->old_file2) {
-            //     Storage::disk('public')->delete($request->old_file2);
-            // }
-            if ($request->old_file4) {
-                Storage::delete('public/'.$request->old_file4);
-            }
-
-            $file = $request->file('file4');
-            $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
-            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
-                $image = Image::make($file->getRealPath());
-
-                $image->resize(2000, null, function ($c) {
-                    $c->aspectRatio();
-                    $c->upsize();
-                });
-
-                $image->save($path, 80);
-            } else {
-                $file->storeAs('public/report_images', $filename);
-            }
-
-            $file4Path = 'report_images/'.$filename;
-            $report->file4 = $file4Path;
-
-        }
-
+    
+        // ===== FILE 3 =====
+        $file3Path = $report->file3;
         if ($request->hasFile('file3')) {
-            // if ($request->old_file2) {
-            //     Storage::disk('public')->delete($request->old_file2);
-            // }
-            if ($request->old_file3) {
-                Storage::delete('public/'.$request->old_file3);
-            }
-
             $file = $request->file('file3');
             $ext = strtolower($file->getClientOriginalExtension());
-
-            $filename = uniqid().'.'.($ext === 'heic' ? 'jpg' : $ext);
-            $path = storage_path('app/public/report_images/'.$filename);
-
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+    
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+    
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-
                 $image = Image::make($file->getRealPath());
-
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
-
-                $image->save($path, 80);
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+                unlink($tempPath);
             } else {
-                $file->storeAs('public/report_images', $filename);
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
-
-            $file3Path = 'report_images/'.$filename;
-            $report->file3 = $file3Path;
-
+    
+            if ($report->file3 && Storage::disk('public')->exists($report->file3)) {
+                Storage::disk('public')->delete($report->file3);
+            }
+    
+            $file3Path = $relativePath;
         }
-
-        // VIDEO
+    
+        // ===== FILE 4 =====
+        $file4Path = $report->file4;
+        if ($request->hasFile('file4')) {
+            $file = $request->file('file4');
+            $ext = strtolower($file->getClientOriginalExtension());
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+    
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+    
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
+                $image = Image::make($file->getRealPath());
+                $image->resize(2000, null, function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+                unlink($tempPath);
+            } else {
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
+            }
+    
+            if ($report->file4 && Storage::disk('public')->exists($report->file4)) {
+                Storage::disk('public')->delete($report->file4);
+            }
+    
+            $file4Path = $relativePath;
+        }
+    
+        // ===== VIDEO =====
+        $videoPath = $report->video;
         if ($request->hasFile('video')) {
-            if ($report->video) {
-                Storage::delete($report->video);
+            $file = $request->file('video');
+            $ext = strtolower($file->getClientOriginalExtension());
+            $saveExt = $ext;
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+    
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
             }
-            $report->video = $request->file('video')->store('videos');
+    
+            Storage::disk('public')->putFileAs($folder, $file, $filename);
+    
+            if ($report->video && Storage::disk('public')->exists($report->video)) {
+                Storage::disk('public')->delete($report->video);
+            }
+    
+            $videoPath = $relativePath;
         }
+    
+        // ===== VIDEO 2 =====
+        $video2Path = $report->video2;
         if ($request->hasFile('video2')) {
-            if ($report->video2) {
-                Storage::delete($report->video2);
+            $file = $request->file('video2');
+            $ext = strtolower($file->getClientOriginalExtension());
+            $saveExt = $ext;
+            $filename = uniqid() . '.' . $saveExt;
+            $relativePath = $folder . '/' . $filename;
+    
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
             }
-            $report->video2 = $request->file('video2')->store('videos');
+    
+            Storage::disk('public')->putFileAs($folder, $file, $filename);
+    
+            if ($report->video2 && Storage::disk('public')->exists($report->video2)) {
+                Storage::disk('public')->delete($report->video2);
+            }
+    
+            $video2Path = $relativePath;
         }
-        $report->status = 'Proses Kasi';
-        $report->save();
+    
+        // ===== UPDATE DATABASE =====
+        $report->update([
+            'title' => $request->title,
+            'desc' => $request->desc,
+            'file1' => $file1Path,
+            'file2' => $file2Path,
+            'file3' => $file3Path,
+            'file4' => $file4Path,
+            'video' => $videoPath,
+            'video2' => $video2Path,
+        ]);
+    
         $nameUser = Auth::user()->name;
         $idUser = Auth::id();
         Log::create([
-            'activity' => "$nameUser Merevisi Laporan Dengan Judul $request->title",
+            'activity' => "$nameUser Mengupdate Laporan Dengan Judul {$request->title}",
             'created_by' => $idUser,
         ]);
-
+    
         return redirect()
             ->route('staff.report.index')
-            ->with('status', 'Laporan berhasil direvisi');
+            ->with('status', 'Laporan berhasil diupdate');
     }
+    
 
     public function show(Report $report)
     {

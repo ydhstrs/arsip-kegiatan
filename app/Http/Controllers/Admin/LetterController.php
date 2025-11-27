@@ -147,41 +147,60 @@ class LetterController extends Controller
     
         // --- HANDLING FILE UPDATE ---
         if ($request->hasFile('file')) {
-    
-            // HAPUS FILE LAMA jika ada
-            if ($letter->file && Storage::exists('public/' . $letter->file)) {
-                Storage::delete('public/' . $letter->file);
+
+            // --- HAPUS FILE LAMA ---
+            if ($letter->file && Storage::disk('public')->exists($letter->file)) {
+                Storage::disk('public')->delete($letter->file);
             }
-    
+        
             $file = $request->file('file');
             $ext = strtolower($file->getClientOriginalExtension());
-    
-            // Tentukan nama file baru
-            $filename = uniqid() . '.' . ($ext === 'heic' ? 'jpg' : $ext);
-    
-            // Path penyimpanan
-            $path = storage_path('app/public/letters/' . $filename);
-    
-            // === COMPRESS IMAGE ===
-            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
-    
-                $image = Image::make($file->getRealPath());
-    
-                // Resize halus
-                $image->resize(2000, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
-    
-                $image->save($path, 80); // kualitas aman
-            } else {
-                // Untuk pdf/non-image
-                $file->storeAs('public/letters', $filename);
+        
+            // HEIC → JPG
+            $saveExt = ($ext === 'heic' ? 'jpg' : $ext);
+        
+            // nama file baru
+            $filename = uniqid() . '.' . $saveExt;
+        
+            // folder tujuan (di dalam disk public)
+            $folder = 'letters';
+            $relativePath = $folder . '/' . $filename;
+        
+            // pastikan folder ada
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
             }
-    
-            // Simpan ke DB
-            $validatedData['file'] = 'letters/' . $filename;
+        
+            // === COMPRESS handling ===
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
+        
+                $image = Image::make($file->getRealPath());
+        
+                // resize max width 2000px
+                $image->resize(2000, null, function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+        
+                // simpan sementara
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+        
+                // upload ke storage
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+        
+                // hapus temp
+                unlink($tempPath);
+        
+            } else {
+                // PDF atau non-image
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
+            }
+        
+            // Simpan path ke DB
+            $validatedData['file'] = $relativePath;
         }
+        
     
         // Status **tidak diubah** (biarkan sesuai workflow)
         // $validatedData['status'] = $letter->status;
