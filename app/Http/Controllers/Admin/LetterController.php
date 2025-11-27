@@ -72,36 +72,44 @@ class LetterController extends Controller
             // nama file unik
             $filename = uniqid() . '.' . $saveExt;
         
-            // lokasi simpan (langsung ke public_html)
-            $path = public_path('letters/' . $filename);
+            // folder tujuan relatif ke disk
+            $folder = 'letters';
+            $relativePath = $folder . '/' . $filename;
         
-            // pastikan folder ada
-            if (!file_exists(public_path('letters'))) {
-                mkdir(public_path('letters'), 0777, true);
+            // --- CHECK FOLDER DI DISK ---
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
             }
         
             // === COMPRESS IMAGE ===
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'heic'])) {
         
+                // load image
                 $image = Image::make($file->getRealPath());
         
-                // Resize lembut max 2000px
+                // resize max 2000px
                 $image->resize(2000, null, function ($c) {
                     $c->aspectRatio();
                     $c->upsize();
                 });
         
-                // simpan dengan kualitas 80
-                $image->save($path, 80);
+                // simpan sementara di memory
+                $tempPath = sys_get_temp_dir() . '/' . $filename;
+                $image->save($tempPath, 80);
+        
+                // upload file hasil compress
+                Storage::disk('public')->put($relativePath, file_get_contents($tempPath));
+        
+                // hapus temp file
+                unlink($tempPath);
         
             } else {
-        
-                // file selain image → copy biasa
-                $file->move(public_path('letters'), $filename);
+                // PDF atau non-image → disimpan langsung
+                Storage::disk('public')->putFileAs($folder, $file, $filename);
             }
         
-            // simpan path ke DB
-            $validatedData['file'] = 'letters/' . $filename;
+            // Simpan path ke database
+            $validatedData['file'] = $relativePath;
         }
         
     
