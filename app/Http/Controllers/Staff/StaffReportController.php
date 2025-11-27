@@ -213,7 +213,7 @@ class StaffReportController extends Controller
             $videoPath = $request->file('video')->store('report_videos', 'public');
         }
         if ($request->hasFile('video2')) {
-            $videoPath2 = $request->file('video2')->store('report_videos', 'public');
+            $video2Path = $request->file('video2')->store('report_videos', 'public');
         }
 
         /* ================================
