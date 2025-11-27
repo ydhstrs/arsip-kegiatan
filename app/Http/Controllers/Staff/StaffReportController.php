@@ -178,7 +178,7 @@ class StaffReportController extends Controller
                 $file->storeAs('public/report_images', $filename);
             }
 
-            $file2Path = 'report_images/'.$filename;
+            $file3Path = 'report_images/'.$filename;
         }
 
         if ($request->hasFile('file4')) {
@@ -203,7 +203,7 @@ class StaffReportController extends Controller
                 $file->storeAs('public/report_images', $filename);
             }
 
-            $file2Path = 'report_images/'.$filename;
+            $file4Path = 'report_images/'.$filename;
         }
 
         /* ================================
@@ -374,7 +374,7 @@ class StaffReportController extends Controller
             $report->file4 = $file4Path;
 
         }
-        
+
         if ($request->hasFile('file3')) {
             // if ($request->old_file2) {
             //     Storage::disk('public')->delete($request->old_file2);

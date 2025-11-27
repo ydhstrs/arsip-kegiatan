@@ -1,105 +1,74 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAPORAN KEGIATAN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .kwitansi {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .detail {
+            margin-top: 40px;
+        }
+        .detail table {
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .detail th, .detail td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid black;
+        }
+        .signature {
+            margin-top: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 
-@section('title', $title)
-
-@section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
-
-    <div class="bg-white block w-full overflow-x-auto p-8 shadow-md rounded-xl">
-        <a href="/dashboard/kasat/report" class="btn btn-primary mb-4">Kembali</a>
-
-        <h3 class="text-xl font-semibold mb-6">{{ $title }}</h3>
-
-        {{-- Status Alert --}}
-        @if (session('status'))
-            <div class="alert alert-success mb-4">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        {{-- Nomor Surat --}}
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Nomor Surat</label>
-            <div class="p-3 bg-gray-50 border rounded-lg">
-                {{ $item->letter->no }}
-            </div>
-        </div>
-
-        {{-- Judul --}}
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Judul Laporan</label>
-            <div class="p-3 bg-gray-50 border rounded-lg">
-                {{ $item->title }}
-            </div>
-        </div>
-
-        {{-- Deskripsi Staff --}}
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan Laporan Staff</label>
-            <div class="p-3 bg-gray-50 border rounded-lg">
-                {{ $item->desc }}
-            </div>
-        </div>
-
-        {{-- Revisi Kasi (jika ada) --}}
-        @if ($item->remark_kasi)
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan Revisi Kasi</label>
-            <div class="p-3 bg-gray-50 border rounded-lg">
-                {{ $item->remark_kasi }}
-            </div>
-        </div>
-        @endif
-
-        {{-- Revisi Kabid (jika ada) --}}
-        @if ($item->remark_kabid)
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Keterangan Revisi Kabid</label>
-            <div class="p-3 bg-gray-50 border rounded-lg">
-                {{ $item->remark_kabid }}
-            </div>
-        </div>
-        @endif
-
-        {{-- FOTO 1 --}}
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 1</label>
-
-            @if ($item->file1)
-                <img src="{{ Storage::url($item->file1) }}"
-                     class="rounded max-h-96 mb-3 shadow">
-            @else
-                <p class="text-gray-500 italic">Tidak ada foto</p>
-            @endif
-        </div>
-
-        {{-- FOTO 2 --}}
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Foto 2</label>
-
-            @if ($item->file2)
-                <img src="{{ Storage::url($item->file2) }}"
-                     class="rounded max-h-96 mb-3 shadow">
-            @else
-                <p class="text-gray-500 italic">Tidak ada foto</p>
-            @endif
-        </div>
-
-        {{-- VIDEO --}}
-        <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Lampiran Video</label>
-
-            @if ($item->video)
-                <video controls class="rounded max-h-96 shadow mb-3">
-                    <source src="{{ Storage::url($item->video) }}" type="video/mp4">
-                </video>
-            @else
-                <p class="text-gray-500 italic">Tidak ada video</p>
-            @endif
-        </div>
-
-
-
-    </div>
+<div class="kwitansi">
+    <h2>Kwitansi Pembayaran Avour</h2>
+    <p>No. Kwitansi: {{ $bill->transaction_no }}</p>
+    <p>Tanggal: {{ \Carbon\Carbon::parse($bill->payment_date)->translatedFormat('d F Y') }}</p>
 </div>
-@endsection
+
+<div class="detail">
+    <table>
+        <tr>
+            <th>Nama Penerima</th>
+            <td>AVour</td>
+        </tr>
+        <tr>
+            <th>Nama Pemberi</th>
+            <td>{{ $bill->guest_name }}</td>
+        </tr>
+        <tr>
+            <th>Uraian</th>
+            <td>{{ $bill->remark }}</td>
+        </tr>
+        <tr>
+            <th>Jumlah</th>
+            <td>Rp {{ number_format($bill->amount, 0, ',', '.') }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="signature">
+    <p>Mengetahui,</p>
+    <p>PIHAK PERTAMA</p>
+    <p>({{ $bill->user->name }})</p>
+    <p>PIHAK KEDUA</p>
+    <p>({{ $bill->guest_name }})</p>
+</div>
+
+</body>
+</html>
