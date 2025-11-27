@@ -88,7 +88,7 @@ class ReportController extends Controller
         ]);
     }
     public function print(Request $request, $id)
-    {
+    {   $report = Report::where('id', $id)->get();
         return view('backend.admin.report.print', [
             'item' => $report,
             'title' => 'Print Laporan',
