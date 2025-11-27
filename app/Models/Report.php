@@ -12,7 +12,8 @@ class Report extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['no', 'uuid', 'title', 'letter_id', 'remark', 'remark_kabid', 'remark_kasi', 'kasi_user_id', 'kabid_user_id', 'desc', 'status', 'staff_user_id', 'file1', 'file2', 'video',
+    protected $fillable = ['no', 'uuid', 'title', 'letter_id', 'remark', 'remark_kabid', 'remark_kasi', 'kasi_user_id', 'kabid_user_id', 'desc', 'status', 'staff_user_id', 
+    'file1', 'file2', 'video', 'video2', 'file3', 'file4',
     ];
 
     protected $dates = ['deleted_at'];

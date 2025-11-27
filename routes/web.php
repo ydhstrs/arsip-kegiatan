@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\LetterController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Kabid\KabidLetterController;
 use App\Http\Controllers\Kasat\KasatLetterController;
 use App\Http\Controllers\Kasat\KasatReportController;
@@ -105,6 +106,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 ->name('letter.data');
     
             Route::resource('letter', LetterController::class);
+        });
+        Route::prefix('dashboard/admin')
+        ->name('admin.')
+        ->group(function () {
+            Route::get('report/data', [ReportController::class, 'getData'])
+                ->name('report.data');
+            Route::resource('report', ReportController::class);
+                Route::post('/admin/report/{id}/print', [ReportController::class, 'print'])
+                ->name('admin.report.print');  
         });
 
     });

@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('desc')->nullable();
             $table->longText('file1')->nullable();
             $table->longText('file2')->nullable();
+            $table->longText('file3')->nullable();
+            $table->longText('file4')->nullable();
             $table->longText('video')->nullable();
+            $table->longText('video2')->nullable();
             $table->text('remark')->nullable();
             $table->string('status');
             $table->string('remark_kasi')->nullable();
