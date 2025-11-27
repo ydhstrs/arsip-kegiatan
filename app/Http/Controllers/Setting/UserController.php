@@ -35,11 +35,12 @@ class UserController extends Controller
     }
 
     public function create(): View
-    {
+    {   
         return view('backend.setting.user.create', [
             // 'charges' => ChargeType::all(),
             'title' => 'Tambah Pengguna',
             'roles' => Role::all(),
+            'users' => User::all(),
         ]);
     }
 
@@ -58,6 +59,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email_verified_at' => now(),
             'email' => $request->email,
+            'lead_user_id' => $request->lead_user_id,
             'password' => bcrypt($request->password),
         ]);
 
@@ -72,6 +74,7 @@ class UserController extends Controller
         return view('backend.setting.user.edit', [
             'item' => $user,
             'roles' => Role::all(),
+            'users' => User::all(),
             'title' => 'Edit User',
         ]);
     }
@@ -91,6 +94,7 @@ class UserController extends Controller
             'name'     => $request->name,
             'username' => $request->username,
             'email'    => $request->email,
+            'lead_user_id' => $request->lead_user_id,
             // hanya update password kalau diisi
             'password' => $request->password ? bcrypt($request->password) : $user->password,
         ]);

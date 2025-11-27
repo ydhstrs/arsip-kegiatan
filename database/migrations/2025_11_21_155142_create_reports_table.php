@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->string('title');
-            $table->string('desc')->nullable();
+            $table->longText('desc')->nullable();
             $table->longText('file1')->nullable();
             $table->longText('file2')->nullable();
             $table->longText('file3')->nullable();

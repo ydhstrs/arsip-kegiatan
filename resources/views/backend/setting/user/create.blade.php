@@ -36,6 +36,18 @@
                     </select>
                 </div>
                 <div class="mb-6">
+                    <label for="lead_user_id" class="block mb-2 text-sm font-medium text-gray-900">Atasan Langsung</label>
+                    <select name="lead_user_id" id="lead_user_id" 
+                            class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
+                            required>
+                        <option value="">-- Pilih Atasan Langsung --</option>
+                
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-6">
                     <label for="username" class="block mb-2 text-sm font-medium text-gray-900 ">Username</label>
                     <input type="username" id="username" name="username"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"

@@ -42,6 +42,21 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Jabatan</label>
+                    <select name="lead_user_id"
+                        class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
+                        required>
+                        <option value="">-- Atasan Langsung--</option>
+
+                        @foreach ($users as $user)
+                            <option value="{{ $role->user }}"
+                                {{ $item->lead_user_id == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Username</label>
