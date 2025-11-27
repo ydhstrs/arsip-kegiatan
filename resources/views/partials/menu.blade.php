@@ -28,7 +28,8 @@
         <li class="menu-item" style="pointer-events: none;">
             <a class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div>{{ auth()->user()->name }}</div>
+                {{-- <div>{{ auth()->user()->name }}</div> --}}
+                <div>{{ auth()->user()?->name ?? '-' }}</div>
             </a>
         </li>
         <li class="menu-item">
