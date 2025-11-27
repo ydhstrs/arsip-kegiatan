@@ -45,7 +45,7 @@
     <table>
         <tr>
             <th>Nama Penerima</th>
-            <td>sipptrantibum</td>
+            <td>sigappraja</td>
         </tr>
         <tr>
             <th>Nama Pemberi</th>

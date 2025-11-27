@@ -5,7 +5,7 @@
             <span class="app-brand-logo demo">
                 {{-- Logo Here --}}
             </span>
-            <span class="app-brand-text text-2xl menu-text fw-bold ms-2">sipptrantibum</span>
+            <span class="app-brand-text text-2xl menu-text fw-bold ms-2">sigappraja</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

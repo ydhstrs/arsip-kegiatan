@@ -111,7 +111,7 @@
                     @enderror
                 </div>
                 <div class="mb-6">
-                    <label class="block mb-2 text-sm font-medium text-gray-900" for="video">
+                    <label class="block mb-2 text-sm font-medium text-gray-900" for="video2">
                         Upload Video 2 (Jika Ada)
                     </label>
                     <video id="vidPreview2" class="hidden w-56 mb-2 rounded" controls></video>
@@ -123,7 +123,7 @@
                         MP4, MKV, AVI, MOV (Max 50MB).
                     </p>
 
-                    @error('video')
+                    @error('video2')
                         <div class="text-red-600">
                             {{ $message }}
                         </div>
