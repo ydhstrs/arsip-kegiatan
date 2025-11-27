@@ -333,7 +333,6 @@ class StaffReportController extends Controller
             Storage::disk('public')->putFileAs($folder, $file, $filename);
             $video2Path = $relativePath;
         }
-
         /* ================================
            INSERT DATABASE
         =================================*/
