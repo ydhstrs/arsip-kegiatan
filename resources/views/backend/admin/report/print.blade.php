@@ -37,8 +37,8 @@
 
 <div class="kwitansi">
     <h2>Kwitansi Pembayaran Avour</h2>
-    <p>No. Kwitansi: {{ $bill->transaction_no }}</p>
-    <p>Tanggal: {{ \Carbon\Carbon::parse($bill->payment_date)->translatedFormat('d F Y') }}</p>
+    <p>No. Kwitansi: {{ $item->title }}</p>
+    <p>Tanggal: {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</p>
 </div>
 
 <div class="detail">
@@ -49,15 +49,15 @@
         </tr>
         <tr>
             <th>Nama Pemberi</th>
-            <td>{{ $bill->guest_name }}</td>
+            <td>{{ $item->guest_name }}</td>
         </tr>
         <tr>
             <th>Uraian</th>
-            <td>{{ $bill->remark }}</td>
+            <td>{{ $item->remark }}</td>
         </tr>
         <tr>
             <th>Jumlah</th>
-            <td>Rp {{ number_format($bill->amount, 0, ',', '.') }}</td>
+            <td>Rp {{ number_format($item->amount, 0, ',', '.') }}</td>
         </tr>
     </table>
 </div>
@@ -65,9 +65,9 @@
 <div class="signature">
     <p>Mengetahui,</p>
     <p>PIHAK PERTAMA</p>
-    <p>({{ $bill->user->name }})</p>
+    <p>({{ $item->kasi->name }})</p>
     <p>PIHAK KEDUA</p>
-    <p>({{ $bill->guest_name }})</p>
+    <p>({{ $item->guest_name }})</p>
 </div>
 
 </body>
