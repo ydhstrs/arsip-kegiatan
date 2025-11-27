@@ -42,9 +42,9 @@
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="mb-6">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Jabatan</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Atasan Langsung</label>
                     <select name="lead_user_id"
                         class="form-control bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                         required>
