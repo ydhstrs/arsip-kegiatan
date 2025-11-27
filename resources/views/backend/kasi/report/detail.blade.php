@@ -134,7 +134,7 @@
     @if($item->status === 'Proses Kasi')
         <a href="{{route('kasi.report.edit', $item->id)}}" 
         class="btn btn btn-success">Revisi</a>
-        <form action="{{route('kasi.report.approve', $report->id) }}" method="POST" style="display:inline;">
+        <form action="{{route('kasi.report.approve', $item->id) }}" method="POST" style="display:inline;">
             @csrf  
             <button type="submit" class="btn btn-sm btn-primary"
                 onclick="return confirm(\'Yakin setujui laporan ini?\')">Disetujui</button>
