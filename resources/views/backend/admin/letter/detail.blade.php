@@ -46,7 +46,8 @@
                             Lihat PDF
                         </a>
                     @else
-                        <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3">
+                        {{-- <img src="{{ Storage::url($item->file) }}" class="rounded max-h-96 mb-3"> --}}
+                        <img src="{{ asset('storage/' . $item->file) }}" class="rounded max-h-96 mb-3">
                     @endif
                 @endif
 
