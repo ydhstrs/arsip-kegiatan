@@ -92,7 +92,7 @@
 
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
-}
+},
 
                     
                     {
