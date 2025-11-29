@@ -99,9 +99,7 @@
                         return `${day}/${month}/${year} ${hours}:${minutes}`;
                     }
                 },
-
-
-                    
+  
                     {
                         data: 'action',
                         name: 'action',
