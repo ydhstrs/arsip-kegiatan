@@ -57,6 +57,24 @@
         .text-right {
             text-align: right;
         }
+        .content-wrapper {
+    position: relative;
+}
+
+.content-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('{{ asset('images/bg-satpol.png') }}');
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+    z-index: -1;
+}
     </style>
 </head>
 

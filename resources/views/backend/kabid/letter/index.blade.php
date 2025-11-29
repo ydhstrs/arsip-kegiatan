@@ -65,9 +65,12 @@
                         data: 'desc',
                         name: 'desc',
                         orderable: true,
-                        searchable: true
-                    },
-
+                        searchable: true,
+                        render: function(data, type, row) {
+                            if (!data) return '';
+                            return data.length > 50 ? data.substring(0, 50) + '...' : data;
+                        }
+                },
                     
                     {
                         data: 'action',

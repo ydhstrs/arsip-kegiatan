@@ -7,7 +7,7 @@
             {{-- Logo --}}
             @include('auth.partials.logo')
             {{-- !Logo --}}
-            <p class="mb-3">Please sign-in to your account first</p>
+            <p class="">Please sign-in to your account first</p>
 
             <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
                 @csrf

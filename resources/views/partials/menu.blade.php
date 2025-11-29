@@ -1,13 +1,12 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-
-        <a href="{{ route('/') }}" class="app-brand-link">
-            <span class="app-brand-logo demo">
-                {{-- Logo Here --}}
+        <a href="{{ route('/') }}" class="app-brand-link d-flex flex-column align-items-center">
+            <span class="app-brand-logo demo d-flex align-items-center gap-2 mb-2">
+                <img src="{{ asset('images/logokemendagri.png') }}" alt="Logo 1" style="height: 102px;">
+                <img src="{{ asset('images/logopemkomedan.png') }}" alt="Logo 2" style="height: 100px;">
             </span>
-            <span class="app-brand-text text-2xl menu-text fw-bold ms-2">sigappraja</span>
+            <span class="app-brand-text text-3xl menu-text fw-bold">Sigap Praja</span>
         </a>
-
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="align-middle bx bx-chevron-left bx-sm"></i>
         </a>
@@ -18,7 +17,7 @@
     <ul class="py-1 menu-inner">
 
         {{-- Admin --}}
-        <li class="menu-item {{ request()->is('home') ? 'active' : '' }}">
+        <li class=" menu-item {{ request()->is('dashboard') ? 'active' : '' }}"">
             <a href="{{ route('dashboard.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Beranda">Beranda</div>

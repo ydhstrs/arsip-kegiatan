@@ -53,10 +53,10 @@ class LetterController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'no' => 'required|unique:letters,no|max:255',
+            'no' => 'required|max:255',
             'source' => 'required|max:255',
             'desc' => '',
-            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,heic|max:4096',
+            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,heic|max:10240',
             'remark' => '',
         ]);
     
@@ -141,7 +141,7 @@ class LetterController extends Controller
             'no' => 'required|max:255',
             'source' => 'required|max:255',
             'desc' => '',
-            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,heic|max:4096',
+            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,heic|max:10240',
             'remark' => '',
         ]);
     

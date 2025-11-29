@@ -50,9 +50,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
     });
 
+    Route::get('/dashboard', [DashboardController::class, 'showChart'])->name('dashboard.index');
     Route::group(['middleware' => ['role:Administrator']], function () {
 
-        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
 
 
         // Room
@@ -97,7 +97,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::group(['middleware' => ['role:Admin|Administrator']], function () {
 
-        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+        // Route::get('/dashboard', [DashboardController::class, 'showChart'])->name('dashboard.index');
 
         Route::prefix('dashboard/admin')
         ->name('admin.')
@@ -121,7 +121,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     
     Route::group(['middleware' => ['role:Kabid|Administrator']], function () {
 
-        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+        // Route::get('/dashboard', [DashboardController::class, 'showChart'])->name('dashboard.index');
 
         Route::prefix('dashboard/kabid')
         ->name('kabid.')
@@ -147,7 +147,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::group(['middleware' => ['role:Kasi|Administrator']], function () {
 
-        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+        // Route::get('/dashboard', [DashboardController::class, 'showChart'])->name('dashboard.index');
 
         Route::prefix('dashboard/kasi')
         ->name('kasi.')
@@ -171,8 +171,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
     Route::group(['middleware' => ['role:Staff|Administrator']], function () {
 
-        Route::get('/home', [DashboardController::class, 'showChart'])
-            ->name('dashboard.index');
+        // Route::get('/dashboard', [DashboardController::class, 'showChart'])
+        //     ->name('dashboard.index');
     
         Route::prefix('dashboard/staff')
             ->name('staff.')
@@ -218,7 +218,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
     Route::group(['middleware' => ['role:Kasat|Administrator']], function () {
 
-        Route::get('/home', [DashboardController::class, 'showChart'])->name('dashboard.index');
+        // Route::get('/dashboard', [DashboardController::class, 'showChart'])->name('dashboard.index');
         Route::prefix('dashboard/kasat')
         ->name('kasat.')
         ->group(function () {

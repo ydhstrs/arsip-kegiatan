@@ -140,6 +140,10 @@ $chart = Chartjs::build()
                 ],
             ]);
 
-        return view('backend.dashboard.index', compact('chart','chartOut' ,'chartRoom'));
+        // return view('backend.dashboard.index', compact('chart','chartOut' ,'chartRoom'));
+        return view('backend.dashboard.index', [
+            // 'item' => $letter,
+            'title' => 'Dashboard',
+        ]);
     }
 }

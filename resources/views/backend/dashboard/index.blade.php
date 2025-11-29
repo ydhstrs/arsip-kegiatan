@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title')
+{{-- @section('title') --}}
+@section('title', $title)
 
 @section('content')
 

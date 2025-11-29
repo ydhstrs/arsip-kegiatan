@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('letters', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
-            $table->string('no')->unique();
+            $table->string('no');
             $table->text('desc')->nullable();
             $table->longText('file')->nullable();
             $table->string('source')->nullable();
