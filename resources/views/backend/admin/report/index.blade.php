@@ -24,6 +24,7 @@
                             <th>Nomor Surat</th>
                             <th>Status</th>
                             <th>Deskripsi</th>
+                            <th>Waktu Dibuat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -72,6 +73,26 @@
                         return data.length > 50 ? data.substring(0, 50) + '...' : data;
                     }
                 },
+                {
+    data: 'created_at',
+    name: 'created_at',
+    render: function(data) {
+        if (!data) return '';
+
+        const d = new Date(data);
+
+        // format dd/mm/yyyy
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+
+        // format HH:MM
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+
+        return `${day}/${month}/${year} ${hours}:${minutes}`;
+    }
+}
 
                     
                     {

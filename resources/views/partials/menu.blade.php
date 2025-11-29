@@ -5,7 +5,7 @@
                 <img src="{{ asset('images/logokemendagri.png') }}" alt="Logo 1" style="height: 102px;">
                 <img src="{{ asset('images/logopemkomedan.png') }}" alt="Logo 2" style="height: 100px;">
             </span>
-            <span class="app-brand-text text-3xl menu-text fw-bold">Sigap Praja</span>
+            <span class="app-brand-text text-2xl menu-text fw-bold">SIGAP PRAJA</span>
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="align-middle bx bx-chevron-left bx-sm"></i>
