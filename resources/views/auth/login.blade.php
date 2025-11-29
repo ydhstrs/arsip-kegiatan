@@ -5,9 +5,11 @@
     <div class="card">
         <div class="card-body">
             {{-- Logo --}}
-            @include('auth.partials.logo')
+            <div style="margin-bottom: -50px;">
+                @include('auth.partials.logo')
+            </div>
             {{-- !Logo --}}
-            <p class="">Please sign-in to your account first</p>
+            <p class="" style="margin-top: -10px;" >Please sign-in to your account first</p>
 
             <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
                 @csrf
